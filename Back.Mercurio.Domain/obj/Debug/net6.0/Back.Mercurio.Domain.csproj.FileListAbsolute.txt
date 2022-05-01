@@ -1,0 +1,12 @@
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\bin\Debug\net6.0\Back.Mercurio.Domain.deps.json
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\bin\Debug\net6.0\Back.Mercurio.Domain.dll
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\bin\Debug\net6.0\Back.Mercurio.Domain.pdb
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\Back.Mercurio.Domain.csproj.AssemblyReference.cache
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\Back.Mercurio.Domain.GeneratedMSBuildEditorConfig.editorconfig
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\Back.Mercurio.Domain.AssemblyInfoInputs.cache
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\Back.Mercurio.Domain.AssemblyInfo.cs
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\Back.Mercurio.Domain.csproj.CoreCompileInputs.cache
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\Back.Mercurio.Domain.dll
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\refint\Back.Mercurio.Domain.dll
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\Back.Mercurio.Domain.pdb
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Domain\obj\Debug\net6.0\ref\Back.Mercurio.Domain.dll

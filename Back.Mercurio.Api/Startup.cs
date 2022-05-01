@@ -1,4 +1,7 @@
-﻿namespace Back.Mercurio.Api
+﻿using Back.Mercurio.Api.Configuration;
+using Back.Mercurio.Api.Configuration.Identidade;
+
+namespace Back.Mercurio.Api
 {
     public class Startup
     {
@@ -11,24 +14,21 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddIdentityConfiguration(Configuration);
+            services.AddApiConfiguration();
+            services.AddSwaggerConfiguration();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)
         {
-            if(app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseCors(cors =>
+                cors.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
 
-            app.UseHttpsRedirection();
+            //app.UseSwaggerConfiguration();
 
-            app.UseAuthorization();
-
-            app.MapControllers();
+            app.UseApiConfiguration(environment);
         }
     }
 }
