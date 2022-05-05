@@ -796,11 +796,23 @@
           }
         }
       },
+      "Back.Mercurio.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Back.Mercurio.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Back.Mercurio.Domain.dll": {}
+        }
+      },
       "Back.Mercurio.Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.4"
+          "Back.Mercurio.Domain": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.4"
         },
         "compile": {
           "bin/placeholder/Back.Mercurio.Infrastructure.dll": {}
@@ -2371,6 +2383,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Back.Mercurio.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Back.Mercurio.Domain/Back.Mercurio.Domain.csproj",
+      "msbuildProject": "../Back.Mercurio.Domain/Back.Mercurio.Domain.csproj"
     },
     "Back.Mercurio.Infrastructure/1.0.0": {
       "type": "project",

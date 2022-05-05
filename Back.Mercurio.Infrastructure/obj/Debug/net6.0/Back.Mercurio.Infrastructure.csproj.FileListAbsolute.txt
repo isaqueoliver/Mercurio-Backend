@@ -10,3 +10,6 @@ G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Infrastructure\obj\Debug\net6.0\B
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Infrastructure\obj\Debug\net6.0\refint\Back.Mercurio.Infrastructure.dll
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Infrastructure\obj\Debug\net6.0\Back.Mercurio.Infrastructure.pdb
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Infrastructure\obj\Debug\net6.0\ref\Back.Mercurio.Infrastructure.dll
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Infrastructure\bin\Debug\net6.0\Back.Mercurio.Domain.dll
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Infrastructure\bin\Debug\net6.0\Back.Mercurio.Domain.pdb
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Infrastructure\obj\Debug\net6.0\Back.Mercurio.Infrastructure.csproj.CopyComplete

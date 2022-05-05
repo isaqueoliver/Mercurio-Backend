@@ -68,3 +68,5 @@ G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\runtimes\win
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\Back.Mercurio.Infrastructure.dll
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\Back.Mercurio.Infrastructure.pdb
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\FluentValidation.dll
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\Back.Mercurio.Domain.dll
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\Back.Mercurio.Domain.pdb
