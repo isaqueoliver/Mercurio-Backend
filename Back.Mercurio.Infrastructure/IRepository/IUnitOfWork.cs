@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Back.Mercurio.Infrastructure.IRepository
+﻿namespace Back.Mercurio.Infrastructure.IRepository
 {
     public interface IUnitOfWork
     {
