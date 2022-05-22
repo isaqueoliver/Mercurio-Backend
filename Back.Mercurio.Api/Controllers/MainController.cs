@@ -10,7 +10,7 @@ namespace Back.Mercurio.Api.Controllers
     {
         protected ICollection<string> Erros = new List<string>();
 
-        protected IActionResult CustomResponse(object? result = null)
+        protected ActionResult CustomResponse(object? result = null)
         {
             if (OperacaoValida())
             {
@@ -23,7 +23,7 @@ namespace Back.Mercurio.Api.Controllers
             }));
         }
 
-        protected IActionResult CustomResponse(ModelStateDictionary modelState)
+        protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
             var erros = modelState.Values.SelectMany(x => x.Errors);
 
@@ -35,7 +35,7 @@ namespace Back.Mercurio.Api.Controllers
             return CustomResponse();
         }
 
-        protected IActionResult CustomResponse(ValidationResult validationResult)
+        protected ActionResult CustomResponse(ValidationResult validationResult)
         {
             foreach (var erro in validationResult.Errors)
             {
@@ -45,9 +45,16 @@ namespace Back.Mercurio.Api.Controllers
             return CustomResponse();
         }
 
-        protected IActionResult CustomResponse(ResponseResult resposta)
+        protected ActionResult CustomResponse(ResponseResult resposta)
         {
             ResponsePossuiErros(resposta);
+
+            return CustomResponse();
+        }
+
+        protected ActionResult CustomResponse(Exception ex)
+        {
+            AdicionarErroProcessamento(ex.Message);
 
             return CustomResponse();
         }

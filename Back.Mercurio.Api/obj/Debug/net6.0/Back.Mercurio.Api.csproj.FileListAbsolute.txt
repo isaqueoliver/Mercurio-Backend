@@ -14,7 +14,6 @@ G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\Back.Mercuri
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\Back.Mercurio.Api.AssemblyInfoInputs.cache
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\Back.Mercurio.Api.AssemblyInfo.cs
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\Back.Mercurio.Api.csproj.CoreCompileInputs.cache
-G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\Back.Mercurio.Api.MvcApplicationPartsAssemblyInfo.cs
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\Back.Mercurio.Api.MvcApplicationPartsAssemblyInfo.cache
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\staticwebassets.build.json
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\obj\Debug\net6.0\staticwebassets.development.json

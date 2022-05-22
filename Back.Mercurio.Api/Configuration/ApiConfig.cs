@@ -1,4 +1,7 @@
-﻿namespace Back.Mercurio.Api.Configuration
+﻿using Back.Mercurio.Infrastructure.IRepository;
+using Back.Mercurio.Infrastructure.Repository;
+
+namespace Back.Mercurio.Api.Configuration
 {
     public static class ApiConfig
     {
@@ -6,6 +9,14 @@
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
+
+            return services;
+        }
+
+        private static IServiceCollection AddDependencyConfiguration(this IServiceCollection services)
+        {
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IMercadoRepository, MercadoRepository>();
 
             return services;
         }

@@ -2,11 +2,6 @@
 using Back.Mercurio.Infrastructure.Context;
 using Back.Mercurio.Infrastructure.IRepository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Back.Mercurio.Infrastructure.Repository
 {
@@ -24,6 +19,11 @@ namespace Back.Mercurio.Infrastructure.Repository
         public async Task<IEnumerable<Mercado>> ObterTodos()
         {
             return await _context.Mercados.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<Mercado> ObterPorNome(string nome)
+        {
+            return await _context.Mercados.FirstOrDefaultAsync(x => x.Nome == nome);
         }
 
         public async Task<Mercado> ObterPorId(Guid id)

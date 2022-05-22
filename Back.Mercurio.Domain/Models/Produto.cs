@@ -1,9 +1,4 @@
 ﻿using Back.Mercurio.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Back.Mercurio.Domain.Models
 {
@@ -18,11 +13,18 @@ namespace Back.Mercurio.Domain.Models
         public string? Imagem { get; set; }
 
         public string IdMercado { get; set; }
-        public  Mercado Mercado { get; set; }
+        public Mercado Mercado { get; set; }
 
-        internal ProdutoViewModel ParaViewModel()
+        public Produto() { }
+
+        public Produto(string nome, decimal valor, Mercado mercado, string? imagem)
         {
-            return new ProdutoViewModel(this.Id, this.Nome, this.Categoria, this.Descricao, this.Valor, this.Imagem, this.Mercado.Nome);
+            Nome = nome;
+            Valor = valor;
+            Mercado = mercado;
+            Imagem = imagem;
+            Ativo = true;
+            DataCadastro = DateTime.Now;
         }
     }
 }

@@ -41,16 +41,6 @@ namespace Back.Mercurio.Api.Controllers
 
             if (result.Succeeded)
             {
-                //var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
-                //var clienteResult = await RegistrarCliente(usuarioRegistro);
-
-                //if (!clienteResult.ValidationResult.IsValid)
-                //{
-                //    await _userManager.DeleteAsync(user);
-
-                //    return CustomResponse(clienteResult.ValidationResult);
-                //}
-
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email));
             }
 

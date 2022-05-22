@@ -7,13 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.Mercurio.Api", "Back.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.Mercurio.Domain", "..\Back.Mercurio.Domain\Back.Mercurio.Domain.csproj", "{3A4AEF2B-8C47-4759-85AF-4E1E7731CB41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.Mercurio.Application", "..\Back.Mercurio.Application\Back.Mercurio.Application.csproj", "{8D91660F-D802-4E06-992E-9260128E352A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.Mercurio.Infrastructure", "..\Back.Mercurio.Infrastructure\Back.Mercurio.Infrastructure.csproj", "{2C0832C4-85B0-4A7D-9AC2-55D2AD7F8C86}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.Mercurio.Test", "..\Back.Mercurio.Test\Back.Mercurio.Test.csproj", "{318F39A7-7B66-4285-AD42-3F0A9A242EDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Back.Mercurio.Helpers", "..\Back.Mercurio.Helpers\Back.Mercurio.Helpers.csproj", "{F1C0CCC2-778D-428E-A08E-379D6E20F0BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Back.Mercurio.Helpers", "..\Back.Mercurio.Helpers\Back.Mercurio.Helpers.csproj", "{F1C0CCC2-778D-428E-A08E-379D6E20F0BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{3A4AEF2B-8C47-4759-85AF-4E1E7731CB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A4AEF2B-8C47-4759-85AF-4E1E7731CB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A4AEF2B-8C47-4759-85AF-4E1E7731CB41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D91660F-D802-4E06-992E-9260128E352A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D91660F-D802-4E06-992E-9260128E352A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D91660F-D802-4E06-992E-9260128E352A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D91660F-D802-4E06-992E-9260128E352A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2C0832C4-85B0-4A7D-9AC2-55D2AD7F8C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2C0832C4-85B0-4A7D-9AC2-55D2AD7F8C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C0832C4-85B0-4A7D-9AC2-55D2AD7F8C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
