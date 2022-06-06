@@ -18,7 +18,7 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<Mercado>> ObterTodos()
         {
-            return await _context.Mercados.AsNoTracking().ToListAsync();
+            return await _context.Mercados.AsNoTracking().Where(x => x.Ativo).ToListAsync();
         }
 
         public async Task<Mercado> ObterPorNome(string nome)
@@ -31,9 +31,10 @@ namespace Back.Mercurio.Infrastructure.Repository
             return await _context.Mercados.FindAsync(id);
         }
 
-        public void Adicionar(Mercado mercado)
+        public async Task<bool> Adicionar(Mercado mercado)
         {
             _context.Mercados.Add(mercado);
+            return await _context.Commit();
         }
 
         public void Atualizar(Mercado mercado)

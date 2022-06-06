@@ -1,12 +1,15 @@
 ﻿using Back.Mercurio.Api.Models;
 using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace Back.Mercurio.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class MercadoController : MainController
     {
         private readonly IMercadoRepository _mercadoRepository;
@@ -19,13 +22,14 @@ namespace Back.Mercurio.Api.Controllers
         /// Método para obter todos os Mercados
         /// </summary>
         [HttpGet("ObterTodos")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<MercadoViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<IEnumerable<MercadoViewModel>>> ObterTodos()
         {
             try
             {
+                var teste = await _mercadoRepository.ObterTodos();
                 var result = ParaMercadoViewModel(await _mercadoRepository.ObterTodos());
                 if (result is not null && result.Any())
                 {
@@ -33,6 +37,30 @@ namespace Back.Mercurio.Api.Controllers
                 }
 
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        [HttpPost("Adicionar")]
+        [ProducesResponseType(typeof(Mercado), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> Adicionar([FromBody, Required] MercadoViewModel mercado)
+        {
+            try
+            {
+                var mercadoAdd = new Mercado(mercado.Nome, mercado.Endereco);
+                var result = await _mercadoRepository.Adicionar(mercadoAdd);
+
+                if (result)
+                {
+                    return Created("Mercado criado com sucesso!", mercadoAdd);
+                }
+
+                AdicionarErroProcessamento("Erro ao adicionar um Mercado.");
+                return CustomResponse();
             }
             catch (Exception ex)
             {

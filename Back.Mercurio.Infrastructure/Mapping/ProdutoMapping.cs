@@ -26,8 +26,8 @@ namespace Back.Mercurio.Infrastructure.Mapping
                 .IsRequired(false)
                 .HasColumnType("varchar(250)");
 
-            builder.Property(x => x.IdMercado)
-                .IsRequired();
+            //builder.Property(x => x.IdMercado)
+            //    .IsRequired();
 
             builder.HasOne(x => x.Mercado)
                 .WithMany(x => x.Produtos)

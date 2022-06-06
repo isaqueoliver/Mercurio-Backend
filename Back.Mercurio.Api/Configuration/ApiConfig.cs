@@ -1,5 +1,8 @@
-﻿using Back.Mercurio.Infrastructure.IRepository;
+﻿using Back.Mercurio.Api.Configuration.Identidade;
+using Back.Mercurio.Api.Usuario;
+using Back.Mercurio.Infrastructure.IRepository;
 using Back.Mercurio.Infrastructure.Repository;
+using System.Text.Json.Serialization;
 
 namespace Back.Mercurio.Api.Configuration
 {
@@ -7,16 +10,33 @@ namespace Back.Mercurio.Api.Configuration
     {
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDependencyConfiguration();
+
+            services.AddControllers()
+                    .AddJsonOptions(options =>
+                        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             services.AddEndpointsApiExplorer();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Total",
+                    builder =>
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+            });
 
             return services;
         }
 
         private static IServiceCollection AddDependencyConfiguration(this IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IMercadoRepository, MercadoRepository>();
+            services.AddScoped<ICarrinhoRepository, CarrinhoRepository>();
 
             return services;
         }
@@ -34,7 +54,11 @@ namespace Back.Mercurio.Api.Configuration
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseRouting();
+
+            app.UseCors("Total");
+
+            app.UseAuthConfiguration();
 
             app.MapControllers();
 

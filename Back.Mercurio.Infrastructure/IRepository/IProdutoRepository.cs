@@ -6,8 +6,9 @@ namespace Back.Mercurio.Infrastructure.IRepository
     {
         Task<IEnumerable<Produto>> ObterTodos();
         Task<Produto> ObterPorId(Guid id);
+        Task<IEnumerable<Produto>> ObterProdutosPorNome(string nome);
 
-        void Adicionar(Produto produto);
+        Task<bool> Adicionar(Produto produto);
         void Atualizar(Produto produto);
     }
 }

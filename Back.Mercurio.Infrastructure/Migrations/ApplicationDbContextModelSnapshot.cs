@@ -22,6 +22,62 @@ namespace Back.Mercurio.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.CarrinhoCliente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Mercado")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId")
+                        .HasDatabaseName("IDX_Cliente");
+
+                    b.ToTable("CarrinhoCliente");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.CarrinhoItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarrinhoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Imagem")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarrinhoId");
+
+                    b.ToTable("CarrinhoItens");
+                });
+
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Mercado", b =>
                 {
                     b.Property<Guid>("Id")
@@ -63,10 +119,6 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdMercado")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagem")
@@ -287,12 +339,21 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.CarrinhoItem", b =>
+                {
+                    b.HasOne("Back.Mercurio.Domain.Models.CarrinhoCliente", "CarrinhoCliente")
+                        .WithMany("Itens")
+                        .HasForeignKey("CarrinhoId")
+                        .IsRequired();
+
+                    b.Navigation("CarrinhoCliente");
+                });
+
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Produto", b =>
                 {
                     b.HasOne("Back.Mercurio.Domain.Models.Mercado", "Mercado")
                         .WithMany("Produtos")
                         .HasForeignKey("MercadoId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Mercado");
@@ -347,6 +408,11 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.CarrinhoCliente", b =>
+                {
+                    b.Navigation("Itens");
                 });
 
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Mercado", b =>

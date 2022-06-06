@@ -21,13 +21,6 @@ namespace Back.Mercurio.Api
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)
         {
-            app.UseCors(cors =>
-                cors.AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-
-            //app.UseSwaggerConfiguration();
-
             app.UseApiConfiguration(environment);
         }
     }

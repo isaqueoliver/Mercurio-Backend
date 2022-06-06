@@ -26,7 +26,7 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpPost("nova-conta")]
-        public async Task<IActionResult> Registrar(UsuarioRegistro usuarioRegistro)
+        public async Task<ActionResult<UsuarioRespostaLogin>> Registrar(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -53,7 +53,7 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpPost("autenticar")]
-        public async Task<IActionResult> Login(UsuarioLogin model)
+        public async Task<ActionResult<UsuarioRespostaLogin>> Login(UsuarioLogin model)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

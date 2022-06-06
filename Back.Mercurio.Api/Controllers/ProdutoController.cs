@@ -1,6 +1,7 @@
 ﻿using Back.Mercurio.Api.Models;
 using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Net;
 namespace Back.Mercurio.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class ProdutoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
@@ -54,7 +56,7 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
-                var mercado = await _mercadoRepository.ObterPorNome(produto.Nome);
+                var mercado = await _mercadoRepository.ObterPorNome(produto.Mercado);
 
                 if (mercado is null)
                 {
@@ -63,9 +65,15 @@ namespace Back.Mercurio.Api.Controllers
                 }
 
                 var produtoAdd = new Produto(produto.Nome, produto.Valor, mercado, produto.Imagem);
-                _produtoRepository.Adicionar(produtoAdd);
+                var result = await _produtoRepository.Adicionar(produtoAdd);
 
-                return Created("Produto criado com sucesso!", produtoAdd);
+                if (result)
+                {
+                    return Created("Produto criado com sucesso!", produtoAdd);
+                }
+
+                AdicionarErroProcessamento($"Ocorreu uma falha ao adicionar o Produto {produto.Nome}.");
+                return CustomResponse();
             }
             catch (Exception ex)
             {
@@ -78,7 +86,7 @@ namespace Back.Mercurio.Api.Controllers
             List<ProdutoViewModel> produtoViewModels = new List<ProdutoViewModel>(produtos.Count());
             foreach (var produto in produtos)
             {
-                produtoViewModels.Add(new ProdutoViewModel(produto.Nome, produto.Mercado.Nome, produto.Valor, produto.Imagem));
+                produtoViewModels.Add(new ProdutoViewModel(produto.Id, produto.Nome, produto.Mercado.Nome, produto.Valor, produto.Imagem));
             }
             return produtoViewModels;
         }

@@ -7,7 +7,7 @@ namespace Back.Mercurio.Infrastructure.IRepository
         Task<IEnumerable<Mercado>> ObterTodos();
         Task<Mercado> ObterPorNome(string nome);
         Task<Mercado> ObterPorId(Guid id);
-        void Adicionar(Mercado mercado);
+        Task<bool> Adicionar(Mercado mercado);
         void Atualizar(Mercado mercado);
     }
 }

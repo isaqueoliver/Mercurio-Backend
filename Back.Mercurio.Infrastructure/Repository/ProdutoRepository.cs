@@ -18,7 +18,7 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<Produto>> ObterTodos()
         {
-            return await _context.Produtos.AsNoTracking().ToListAsync();
+            return await _context.Produtos.AsNoTracking().Include(x => x.Mercado).ToListAsync();
         }
 
         public async Task<Produto> ObterPorId(Guid id)
@@ -26,9 +26,15 @@ namespace Back.Mercurio.Infrastructure.Repository
             return await _context.Produtos.FindAsync(id);
         }
 
-        public void Adicionar(Produto produto)
+        public async Task<IEnumerable<Produto>> ObterProdutosPorNome(string nome)
+        {
+            return await _context.Produtos.AsNoTracking().Include(x => x.Mercado).Where(x => x.Nome == nome).ToListAsync();
+        }
+
+        public async Task<bool> Adicionar(Produto produto)
         {
             _context.Produtos.Add(produto);
+            return await _context.Commit();
         }
 
         public void Atualizar(Produto produto)

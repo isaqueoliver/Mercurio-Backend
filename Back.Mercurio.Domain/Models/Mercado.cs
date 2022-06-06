@@ -10,5 +10,13 @@ namespace Back.Mercurio.Domain.Models
         public DateTime DataCadastro { get; set; }
 
         public List<Produto> Produtos { get; set; }
+
+        public Mercado(string nome, string endereco)
+        {
+            Nome = nome;
+            Endereco = endereco;
+            Ativo = true;
+            DataCadastro = DateTime.Now;
+        }
     }
 }

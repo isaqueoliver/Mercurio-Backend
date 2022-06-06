@@ -12,7 +12,7 @@ namespace Back.Mercurio.Domain.Models
         public DateTime DataCadastro { get; set; }
         public string? Imagem { get; set; }
 
-        public string IdMercado { get; set; }
+        public Guid IdMercado { get => Mercado.Id; }
         public Mercado Mercado { get; set; }
 
         public Produto() { }
