@@ -23,7 +23,7 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<Produto> ObterPorId(Guid id)
         {
-            return await _context.Produtos.FindAsync(id);
+            return await _context.Produtos.Include(x => x.Mercado).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Produto>> ObterProdutosPorNome(string nome)

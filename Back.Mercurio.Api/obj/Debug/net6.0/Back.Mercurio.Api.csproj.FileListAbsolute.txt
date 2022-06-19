@@ -69,3 +69,4 @@ G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\Back.Mercuri
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\FluentValidation.dll
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\Back.Mercurio.Domain.dll
 G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\Back.Mercurio.Domain.pdb
+G:\Projetos\TCC\Mercurio-Backend\Back.Mercurio.Api\bin\Debug\net6.0\appsettings.Prod.json

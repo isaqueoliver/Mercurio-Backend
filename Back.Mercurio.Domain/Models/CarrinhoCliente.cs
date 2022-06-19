@@ -60,7 +60,6 @@ namespace Back.Mercurio.Domain.Models
                 item = itemExistente;
                 Itens.Remove(itemExistente);
             }
-
             Itens.Add(item);
             CalcularValorCarrinho();
         }
@@ -83,7 +82,7 @@ namespace Back.Mercurio.Domain.Models
             AtualizarItem(item);
         }
 
-        internal void RemoverItem(CarrinhoItem item)
+        public void RemoverItem(CarrinhoItem item)
         {
             Itens.Remove(ObterPorProdutoId(item.ProdutoId));
 

@@ -7,7 +7,11 @@ namespace Back.Mercurio.Infrastructure.Context
 {
     public class ApplicationDbContext : IdentityDbContext, IUnitOfWork
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
+        {
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //ChangeTracker.AutoDetectChangesEnabled = false;
+        }
 
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Mercado> Mercados { get; set; }

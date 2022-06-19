@@ -36,16 +36,46 @@ namespace Back.Mercurio.Api.Controllers
                 }
                 else
                 {
-                    ManipularCarrinhoExistente(carrinho, carrinhoItem);
+                    await ManipularCarrinhoExistente(carrinho, carrinhoItem);
                 }
 
-                if (!OperacaoValida()) return CustomResponse();
+                //if (!OperacaoValida()) return CustomResponse();
 
-                await ProcessarCarrinhoCliente(carrinho, _user.ObterUserId());
+                //await ProcessarCarrinhoCliente(carrinho, _user.ObterUserId());
 
                 return CustomResponse();
             }
             catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        [HttpDelete("Remover-Item/{produtoId}")]
+        public async Task<ActionResult> RemoverItemCarrinho(Guid produtoId)
+        {
+            try
+            {
+                var carrinho = await _carrinhoRepository.ObterCarrinhoCliente(_user.ObterUserId());
+                var carrinhoItem = await ObterItemCarrinhoValidado(produtoId, carrinho);
+
+                if (carrinhoItem is null) return CustomResponse();
+
+                carrinho.RemoverItem(carrinhoItem);
+                await _carrinhoRepository.RemoverItemCarrinho(carrinhoItem);
+
+                if (carrinho.Itens.Any() is false)
+                {
+                    await _carrinhoRepository.RemoverCarrinho(carrinho);
+                }
+                else
+                {
+                    await _carrinhoRepository.Atualizar(carrinho);
+                }
+
+                return CustomResponse();
+            }
+            catch(Exception ex)
             {
                 return CustomResponse(ex);
             }
@@ -56,13 +86,38 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
-                var carrinho = await ProcessarCarrinhoCliente(await _carrinhoRepository.ObterCarrinhoCliente(_user.ObterUserId()) ?? new CarrinhoCliente(), _user.ObterUserId());
-                return CarrinhoClienteParaCarrinhoDto(carrinho);
+                //var carrinho = await ProcessarCarrinhoCliente(await _carrinhoRepository.ObterCarrinhoCliente(_user.ObterUserId()) ?? new CarrinhoCliente(), _user.ObterUserId());
+                return CarrinhoClienteParaCarrinhoDto(await _carrinhoRepository.ObterCarrinhoCliente(_user.ObterUserId()) ?? new CarrinhoCliente());
             }
             catch(Exception ex)
             {
                 return CustomResponse(ex);
             }
+        }
+
+        private async Task<CarrinhoItem> ObterItemCarrinhoValidado(Guid produtoId, CarrinhoCliente carrinho, CarrinhoItem item = null)
+        {
+            if (item is not null && produtoId != item.ProdutoId)
+            {
+                AdicionarErroProcessamento("O Item não corresponde ao informado.");
+                return null;
+            }
+
+            if (carrinho is null)
+            {
+                AdicionarErroProcessamento("Carrinho não encontrado.");
+                return null;
+            }
+
+            var itemCarrinho = await _carrinhoRepository.ObterCarrinhoItem(carrinho.Id, produtoId);
+
+            if (itemCarrinho is null || !carrinho.CarrinhoItemExistente(itemCarrinho))
+            {
+                AdicionarErroProcessamento("O Item não está no carrinho.");
+                return null;
+            }
+
+            return itemCarrinho;
         }
 
         private CarrinhoDto CarrinhoClienteParaCarrinhoDto(CarrinhoCliente carrinho)
@@ -73,19 +128,34 @@ namespace Back.Mercurio.Api.Controllers
         private async Task<CarrinhoCliente> ManipularNovoCarrinho(CarrinhoItem item)
         {
             var carrinho = new CarrinhoCliente(_user.ObterUserId());
+            var produto = await _produtoRepository.ObterPorId(item.ProdutoId);
 
             carrinho.AdicionarItem(item);
+            if (produto is null)
+            {
+                AdicionarErroProcessamento($"Item: {item.Nome} não existente na lista de produtos.");
+                return carrinho;
+            }
+
+            carrinho.Mercado = produto.Mercado?.Nome;
 
             if (await _carrinhoRepository.Adicionar(carrinho) is false) AdicionarErroProcessamento($"Não foi possível adicionar {item.Nome} no carrinho.");
 
             return carrinho;
         }
 
-        private async void ManipularCarrinhoExistente(CarrinhoCliente carrinho, CarrinhoItem item)
+        private async Task ManipularCarrinhoExistente(CarrinhoCliente carrinho, CarrinhoItem item)
         {
             var produtoItemExistente = carrinho.CarrinhoItemExistente(item);
+            var produto = await _produtoRepository.ObterPorId(item.ProdutoId);
 
             carrinho.AdicionarItem(item);
+            if (produto is null)
+            {
+                AdicionarErroProcessamento($"Item: {item.Nome} não existente na lista de produtos.");
+                return;
+            }
+            carrinho.Mercado = produto.Mercado?.Nome;
 
             if (produtoItemExistente)
             {

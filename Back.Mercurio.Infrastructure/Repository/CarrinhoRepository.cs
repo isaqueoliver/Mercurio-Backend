@@ -20,6 +20,18 @@ namespace Back.Mercurio.Infrastructure.Repository
             return await _context.Commit();
         }
 
+        public async Task<bool> RemoverItemCarrinho(CarrinhoItem carrinhoItem)
+        {
+            _context.CarrinhoItens.Remove(carrinhoItem);
+            return await _context.Commit();
+        }
+
+        public async Task<bool> RemoverCarrinho(CarrinhoCliente carrinho)
+        {
+            _context.CarrinhoCliente.Remove(carrinho);
+            return await _context.Commit();
+        }
+
         public async Task<bool> Atualizar(CarrinhoCliente carrinho)
         {
             _context.CarrinhoCliente.Update(carrinho);
@@ -43,6 +55,12 @@ namespace Back.Mercurio.Infrastructure.Repository
             return await _context.CarrinhoCliente
                                  .Include(x => x.Itens)
                                  .FirstOrDefaultAsync(x => x.ClienteId == userId);
+        }
+
+        public async Task<CarrinhoItem> ObterCarrinhoItem(Guid carrinhoId, Guid produtoId)
+        {
+            return await _context.CarrinhoItens
+                                 .FirstOrDefaultAsync(x => x.CarrinhoId == carrinhoId && x.ProdutoId == produtoId);
         }
     }
 }
