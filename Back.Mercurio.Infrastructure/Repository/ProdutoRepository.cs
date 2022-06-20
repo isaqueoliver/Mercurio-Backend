@@ -37,9 +37,16 @@ namespace Back.Mercurio.Infrastructure.Repository
             return await _context.Commit();
         }
 
-        public void Atualizar(Produto produto)
+        public async Task<bool> Atualizar(Produto produto)
         {
             _context.Produtos.Update(produto);
+            return await _context.Commit();
+        }
+
+        public async Task<bool> Remover(Produto produto)
+        {
+            _context.Produtos.Remove(produto);
+            return await _context.Commit();
         }
 
         public void Dispose()

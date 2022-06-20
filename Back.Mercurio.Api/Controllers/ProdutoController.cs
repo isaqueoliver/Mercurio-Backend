@@ -81,6 +81,32 @@ namespace Back.Mercurio.Api.Controllers
             }
         }
 
+        [HttpDelete("Remover/{produtoId}")]
+        [ProducesResponseType(typeof(Produto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult> Remover(Guid produtoId)
+        {
+            try
+            {
+                var produto = await _produtoRepository.ObterPorId(produtoId);
+
+                if (produto is null)
+                {
+                    AdicionarErroProcessamento("Não foi possível encontrar o produto no sistema.");
+                    return CustomResponse();
+                }
+
+                await _produtoRepository.Remover(produto);
+
+                return CustomResponse(produto);
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
         private static List<ProdutoViewModel> ParaProdutoViewModel(IEnumerable<Produto> produtos)
         {
             List<ProdutoViewModel> produtoViewModels = new List<ProdutoViewModel>(produtos.Count());

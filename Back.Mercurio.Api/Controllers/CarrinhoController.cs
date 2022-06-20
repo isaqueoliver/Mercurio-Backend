@@ -4,6 +4,7 @@ using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Back.Mercurio.Api.Controllers
 {
@@ -23,6 +24,8 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpPost("Adicionar-Item")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AdicionarItemCarrinho(ItemCarrinhoDto item)
         {
             try
@@ -52,6 +55,8 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpDelete("Remover-Item/{produtoId}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> RemoverItemCarrinho(Guid produtoId)
         {
             try
@@ -82,6 +87,8 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpGet("Obter")]
+        [ProducesResponseType(typeof(CarrinhoDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<CarrinhoDto>> Obter()
         {
             try

@@ -9,6 +9,7 @@ namespace Back.Mercurio.Infrastructure.IRepository
         Task<IEnumerable<Produto>> ObterProdutosPorNome(string nome);
 
         Task<bool> Adicionar(Produto produto);
-        void Atualizar(Produto produto);
+        Task<bool> Atualizar(Produto produto);
+        Task<bool> Remover(Produto produto);
     }
 }

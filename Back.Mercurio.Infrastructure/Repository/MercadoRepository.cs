@@ -42,6 +42,12 @@ namespace Back.Mercurio.Infrastructure.Repository
             _context.Mercados.Update(mercado);
         }
 
+        public async Task<bool> Remover(Mercado mercado)
+        {
+            _context.Mercados.Remove(mercado);
+            return await _context.Commit();
+        }
+
         public void Dispose()
         {
             _context?.Dispose();

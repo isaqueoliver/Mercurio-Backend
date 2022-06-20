@@ -68,9 +68,35 @@ namespace Back.Mercurio.Api.Controllers
             }
         }
 
+        [HttpDelete("Remover/{mercadoId}")]
+        [ProducesResponseType(typeof(Mercado), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult> Remover(Guid mercadoId)
+        {
+            try
+            {
+                var mercado = await _mercadoRepository.ObterPorId(mercadoId);
+
+                if (mercado is null)
+                {
+                    AdicionarErroProcessamento("Mercado não encontrado no sistema.");
+                    return CustomResponse();
+                }
+
+                await _mercadoRepository.Remover(mercado);
+
+                return CustomResponse(mercado);
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
         private static IEnumerable<MercadoViewModel> ParaMercadoViewModel(IEnumerable<Mercado> mercados)
         {
-            return mercados.Select(x => new MercadoViewModel(x.Nome, x.Endereco));
+            return mercados.Select(x => new MercadoViewModel(x.Id, x.Nome, x.Endereco));
         }
     }
 }
