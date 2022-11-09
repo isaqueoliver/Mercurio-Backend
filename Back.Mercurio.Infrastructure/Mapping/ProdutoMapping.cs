@@ -26,6 +26,10 @@ namespace Back.Mercurio.Infrastructure.Mapping
                 .IsRequired(false)
                 .HasColumnType("varchar(250)");
 
+            builder.Property(x => x.UsuarioCadastro)
+                .IsRequired()
+                .HasColumnType("varchar(36)");
+
             //builder.Property(x => x.IdMercado)
             //    .IsRequired();
 

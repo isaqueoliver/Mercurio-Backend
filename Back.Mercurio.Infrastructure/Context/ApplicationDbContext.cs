@@ -1,5 +1,6 @@
 ﻿using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
+using Back.Mercurio.Infrastructure.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,9 +18,17 @@ namespace Back.Mercurio.Infrastructure.Context
         public DbSet<Mercado> Mercados { get; set; }
         public DbSet<CarrinhoItem> CarrinhoItens { get; set; }
         public DbSet<CarrinhoCliente> CarrinhoCliente { get; set; }
+        public DbSet<Estado> Estados { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
+        public DbSet<ProdutoUsuario> ProdutoUsuarios { get; set; }
+        public DbSet<ProdutoValorMedio> ProdutoValorMedios { get; set; }
+        public DbSet<Reporte> Reportes { get; set; }
+        public DbSet<Assunto> Assuntos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.CreateAssunto();
+
             modelBuilder.Entity<CarrinhoCliente>()
                         .HasIndex(x => x.ClienteId)
                         .HasDatabaseName("IDX_Cliente");

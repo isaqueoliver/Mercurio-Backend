@@ -22,6 +22,38 @@ namespace Back.Mercurio.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Assunto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Assuntos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0d5c299e-90d6-4b11-a082-5a28f7cf5d8b"),
+                            Ativo = true,
+                            Descricao = "Falta o nome de um Supermercado ou Mercado"
+                        },
+                        new
+                        {
+                            Id = new Guid("b60bbfa3-098c-457b-8b2e-1b84a0dc4275"),
+                            Ativo = true,
+                            Descricao = "Falta o nome de um Produto ou informação do Produto"
+                        });
+                });
+
             modelBuilder.Entity("Back.Mercurio.Domain.Models.CarrinhoCliente", b =>
                 {
                     b.Property<Guid>("Id")
@@ -78,6 +110,41 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.ToTable("CarrinhoItens");
                 });
 
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Cidade", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EstadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EstadoId");
+
+                    b.ToTable("Cidades");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Estado", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Sigla")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Estados");
+                });
+
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Mercado", b =>
                 {
                     b.Property<Guid>("Id")
@@ -87,7 +154,16 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCricao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DataExclusao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Endereco")
@@ -97,6 +173,15 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UsuarioAlteracao")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioCriacao")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UsuarioExclusao")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -121,6 +206,9 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("IdMercado")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Imagem")
                         .HasColumnType("nvarchar(max)");
 
@@ -128,6 +216,10 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UsuarioCadastro")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -139,6 +231,125 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.HasIndex("MercadoId");
 
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.ProdutoUsuario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("CidadeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EstadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MercadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CidadeId");
+
+                    b.HasIndex("EstadoId");
+
+                    b.HasIndex("MercadoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ProdutoUsuarios");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.ProdutoValorMedio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("CidadeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EstadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MercadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CidadeId");
+
+                    b.HasIndex("EstadoId");
+
+                    b.HasIndex("MercadoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ProdutoValorMedios");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Reporte", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AssuntoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCricao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DataExclusao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Resposta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UsuarioAlteracao")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioCriacao")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UsuarioExclusao")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssuntoId");
+
+                    b.ToTable("Reportes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -349,6 +560,16 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Navigation("CarrinhoCliente");
                 });
 
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Cidade", b =>
+                {
+                    b.HasOne("Back.Mercurio.Domain.Models.Estado", "Estado")
+                        .WithMany("Cidades")
+                        .HasForeignKey("EstadoId")
+                        .IsRequired();
+
+                    b.Navigation("Estado");
+                });
+
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Produto", b =>
                 {
                     b.HasOne("Back.Mercurio.Domain.Models.Mercado", "Mercado")
@@ -357,6 +578,78 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Mercado");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.ProdutoUsuario", b =>
+                {
+                    b.HasOne("Back.Mercurio.Domain.Models.Cidade", "Cidade")
+                        .WithMany()
+                        .HasForeignKey("CidadeId")
+                        .IsRequired();
+
+                    b.HasOne("Back.Mercurio.Domain.Models.Estado", "Estado")
+                        .WithMany()
+                        .HasForeignKey("EstadoId")
+                        .IsRequired();
+
+                    b.HasOne("Back.Mercurio.Domain.Models.Mercado", "Mercado")
+                        .WithMany("ProdutosUsuarios")
+                        .HasForeignKey("MercadoId")
+                        .IsRequired();
+
+                    b.HasOne("Back.Mercurio.Domain.Models.Produto", "Produto")
+                        .WithMany("ProdutoUsuarios")
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+
+                    b.Navigation("Cidade");
+
+                    b.Navigation("Estado");
+
+                    b.Navigation("Mercado");
+
+                    b.Navigation("Produto");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.ProdutoValorMedio", b =>
+                {
+                    b.HasOne("Back.Mercurio.Domain.Models.Cidade", "Cidade")
+                        .WithMany()
+                        .HasForeignKey("CidadeId")
+                        .IsRequired();
+
+                    b.HasOne("Back.Mercurio.Domain.Models.Estado", "Estado")
+                        .WithMany()
+                        .HasForeignKey("EstadoId")
+                        .IsRequired();
+
+                    b.HasOne("Back.Mercurio.Domain.Models.Mercado", "Mercado")
+                        .WithMany()
+                        .HasForeignKey("MercadoId")
+                        .IsRequired();
+
+                    b.HasOne("Back.Mercurio.Domain.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .IsRequired();
+
+                    b.Navigation("Cidade");
+
+                    b.Navigation("Estado");
+
+                    b.Navigation("Mercado");
+
+                    b.Navigation("Produto");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Reporte", b =>
+                {
+                    b.HasOne("Back.Mercurio.Domain.Models.Assunto", "Assunto")
+                        .WithMany("Reportes")
+                        .HasForeignKey("AssuntoId")
+                        .IsRequired();
+
+                    b.Navigation("Assunto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -410,14 +703,31 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Assunto", b =>
+                {
+                    b.Navigation("Reportes");
+                });
+
             modelBuilder.Entity("Back.Mercurio.Domain.Models.CarrinhoCliente", b =>
                 {
                     b.Navigation("Itens");
                 });
 
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Estado", b =>
+                {
+                    b.Navigation("Cidades");
+                });
+
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Mercado", b =>
                 {
                     b.Navigation("Produtos");
+
+                    b.Navigation("ProdutosUsuarios");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Produto", b =>
+                {
+                    b.Navigation("ProdutoUsuarios");
                 });
 #pragma warning restore 612, 618
         }

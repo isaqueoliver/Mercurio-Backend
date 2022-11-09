@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj": {}
+    "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj": {}
   },
   "projects": {
-    "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj": {
+    "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj",
+        "projectUniqueName": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj",
         "projectName": "Back.Mercurio.Test",
-        "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj",
-        "packagesPath": "C:\\Users\\isaqu\\.nuget\\packages\\",
-        "outputPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Test\\obj\\",
+        "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Test\\Back.Mercurio.Test.csproj",
+        "packagesPath": "C:\\Users\\isaque.barbosa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\isaqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\isaque.barbosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,7 +45,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -54,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -37,6 +37,9 @@ namespace Back.Mercurio.Api.Configuration
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IMercadoRepository, MercadoRepository>();
             services.AddScoped<ICarrinhoRepository, CarrinhoRepository>();
+            services.AddScoped<IEstadoRepository, EstadoRepository>();
+            services.AddScoped<ICidadeRepository, CidadeRepository>();
+            services.AddScoped<IAssuntoRepository, AssuntoRepository>();
 
             return services;
         }

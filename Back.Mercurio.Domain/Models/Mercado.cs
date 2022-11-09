@@ -2,14 +2,15 @@
 
 namespace Back.Mercurio.Domain.Models
 {
-    public class Mercado : Entity, IAggregateRoot
+    public class Mercado : EntityBase
     {
-        public string Nome { get; set; }
-        public string Endereco { get; set; }
-        public bool Ativo { get; set; }
-        public DateTime DataCadastro { get; set; }
+        public string Nome { get; private set; }
+        public string Endereco { get; private set; }
+        public bool Ativo { get; private set; }
+        public DateTime DataCadastro { get; private set; }
 
-        public List<Produto> Produtos { get; set; }
+        public virtual List<Produto> Produtos { get; private set; }
+        public virtual List<ProdutoUsuario> ProdutosUsuarios { get; private set; }
 
         public Mercado(string nome, string endereco)
         {

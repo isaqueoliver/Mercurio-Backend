@@ -2,7 +2,7 @@
 
 namespace Back.Mercurio.Infrastructure.IRepository
 {
-    public interface IMercadoRepository : IRepository<Mercado>
+    public interface IMercadoRepository
     {
         Task<IEnumerable<Mercado>> ObterTodos();
         Task<Mercado> ObterPorNome(string nome);

@@ -17,7 +17,7 @@ namespace Back.Mercurio.Api.Models
 
         internal void CarrinhoItemParaItemCarrinhoDto(List<CarrinhoItem> itens)
         {
-            if(itens is not null && itens.Any()) Itens = itens.Select(x => new ItemCarrinhoDto(x.ProdutoId, x.Nome, x.Valor, x.Imagem, x.Quantidade)).ToList();
+            if (itens is not null && itens.Any()) Itens = itens.Select(x => new ItemCarrinhoDto(x.ProdutoId, x.Nome, x.Valor, x.Imagem, x.Quantidade)).ToList();
         }
     }
 }

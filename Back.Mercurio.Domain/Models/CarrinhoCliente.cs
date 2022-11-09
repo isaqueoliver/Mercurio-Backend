@@ -4,11 +4,11 @@ namespace Back.Mercurio.Domain.Models
 {
     public class CarrinhoCliente
     {
-        public Guid Id { get; set; }
-        public Guid ClienteId { get; set; }
-        public decimal ValorTotal { get; set; }
-        public string? Mercado { get; set; }
-        public List<CarrinhoItem> Itens { get; set; } = new List<CarrinhoItem>();
+        public Guid Id { get; private set; }
+        public Guid ClienteId { get; private set; }
+        public decimal ValorTotal { get; private set; }
+        public string? Mercado { get; private set; }
+        public List<CarrinhoItem> Itens { get; private set; } = new List<CarrinhoItem>();
 
         public CarrinhoCliente(Guid clienteId)
         {
@@ -97,16 +97,16 @@ namespace Back.Mercurio.Domain.Models
             Id = Guid.NewGuid();
         }
 
-        public Guid Id { get; set; }
-        public Guid ProdutoId { get; set; }
-        public string Nome { get; set; }
-        public int Quantidade { get; set; }
-        public decimal Valor { get; set; }
-        public string Imagem { get; set; }
+        public Guid Id { get; private set; }
+        public Guid ProdutoId { get; private set; }
+        public string Nome { get; private set; }
+        public int Quantidade { get; private set; }
+        public decimal Valor { get; private set; }
+        public string Imagem { get; private set; }
 
-        public Guid CarrinhoId { get; set; }
+        public Guid CarrinhoId { get; private set; }
         [JsonIgnore]
-        public CarrinhoCliente CarrinhoCliente { get; set; }
+        public CarrinhoCliente CarrinhoCliente { get; private set; }
 
         public CarrinhoItem(Guid produtoId, string nome, int quantidade, decimal valor, string imagem)
         {

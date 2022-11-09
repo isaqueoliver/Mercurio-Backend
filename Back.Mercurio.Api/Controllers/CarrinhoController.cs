@@ -80,7 +80,7 @@ namespace Back.Mercurio.Api.Controllers
 
                 return CustomResponse();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return CustomResponse(ex);
             }
@@ -96,7 +96,7 @@ namespace Back.Mercurio.Api.Controllers
                 //var carrinho = await ProcessarCarrinhoCliente(await _carrinhoRepository.ObterCarrinhoCliente(_user.ObterUserId()) ?? new CarrinhoCliente(), _user.ObterUserId());
                 return CarrinhoClienteParaCarrinhoDto(await _carrinhoRepository.ObterCarrinhoCliente(_user.ObterUserId()) ?? new CarrinhoCliente());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return CustomResponse(ex);
             }
@@ -144,7 +144,7 @@ namespace Back.Mercurio.Api.Controllers
                 return carrinho;
             }
 
-            carrinho.Mercado = produto.Mercado?.Nome;
+            //carrinho.Mercado = produto.Mercado?.Nome;
 
             if (await _carrinhoRepository.Adicionar(carrinho) is false) AdicionarErroProcessamento($"Não foi possível adicionar {item.Nome} no carrinho.");
 
@@ -162,7 +162,7 @@ namespace Back.Mercurio.Api.Controllers
                 AdicionarErroProcessamento($"Item: {item.Nome} não existente na lista de produtos.");
                 return;
             }
-            carrinho.Mercado = produto.Mercado?.Nome;
+            //carrinho.Mercado = produto.Mercado?.Nome;
 
             if (produtoItemExistente)
             {

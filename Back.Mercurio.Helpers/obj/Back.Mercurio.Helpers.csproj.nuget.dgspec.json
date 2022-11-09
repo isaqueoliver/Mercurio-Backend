@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj": {}
+    "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj": {}
   },
   "projects": {
-    "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj": {
+    "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj",
+        "projectUniqueName": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj",
         "projectName": "Back.Mercurio.Api",
-        "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj",
-        "packagesPath": "C:\\Users\\isaqu\\.nuget\\packages\\",
-        "outputPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Api\\obj\\",
+        "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj",
+        "packagesPath": "C:\\Users\\isaque.barbosa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\isaqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\isaque.barbosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj": {
-                "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj"
+              "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj"
               }
             }
           }
@@ -111,7 +111,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -123,21 +124,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj": {
+    "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj",
         "projectName": "Back.Mercurio.Domain",
-        "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj",
-        "packagesPath": "C:\\Users\\isaqu\\.nuget\\packages\\",
-        "outputPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\obj\\",
+        "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj",
+        "packagesPath": "C:\\Users\\isaque.barbosa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\isaqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\isaque.barbosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -168,7 +169,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -177,21 +179,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj": {
+    "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj",
+        "projectUniqueName": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj",
         "projectName": "Back.Mercurio.Helpers",
-        "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj",
-        "packagesPath": "C:\\Users\\isaqu\\.nuget\\packages\\",
-        "outputPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Helpers\\obj\\",
+        "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Helpers\\Back.Mercurio.Helpers.csproj",
+        "packagesPath": "C:\\Users\\isaque.barbosa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Helpers\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\isaqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\isaque.barbosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -205,11 +207,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj": {
-                "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj"
+              "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj": {
+                "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Api\\Back.Mercurio.Api.csproj"
               },
-              "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj": {
-                "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj"
+              "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj": {
+                "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj"
               }
             }
           }
@@ -229,7 +231,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -238,21 +241,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj": {
+    "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj",
         "projectName": "Back.Mercurio.Infrastructure",
-        "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\isaqu\\.nuget\\packages\\",
-        "outputPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\Back.Mercurio.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\isaque.barbosa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\isaqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\isaque.barbosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -266,8 +269,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj": {
-                "projectPath": "G:\\Projetos\\TCC\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj"
+              "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj": {
+                "projectPath": "C:\\Users\\isaque.barbosa\\Desktop\\Projetos\\Mercurio\\Mercurio-Backend\\Back.Mercurio.Domain\\Back.Mercurio.Domain.csproj"
               }
             }
           }
@@ -297,7 +300,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -306,7 +310,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -10,7 +10,7 @@ namespace Back.Mercurio.Helpers.Helpers
             List<ProdutoViewModel> produtoViewModels = new List<ProdutoViewModel>(produtos.Count());
             foreach (var produto in produtos)
             {
-                produtoViewModels.Add(new ProdutoViewModel(produto.Nome, produto.Mercado.Nome, produto.Valor, produto.Imagem));
+                produtoViewModels.Add(new ProdutoViewModel(produto.Id, produto.Nome, produto.Mercado.Nome, produto.Valor, produto.Imagem));
             }
             return produtoViewModels;
         }
