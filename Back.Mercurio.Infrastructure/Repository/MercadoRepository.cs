@@ -18,7 +18,7 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<Mercado>> ObterTodos()
         {
-            return await _context.Mercados.AsNoTracking().Where(x => x.Ativo).ToListAsync();
+            return await _context.Mercados.AsNoTracking().Where(x => x.DataExclusao != null).ToListAsync();
         }
 
         public async Task<Mercado> ObterPorNome(string nome)

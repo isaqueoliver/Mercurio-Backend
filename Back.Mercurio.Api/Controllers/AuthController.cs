@@ -1,4 +1,6 @@
 ﻿using Back.Mercurio.Api.Configuration.Identidade;
+using Back.Mercurio.Api.Usuario;
+using Back.Mercurio.Infrastructure.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,12 +15,12 @@ namespace Back.Mercurio.Api.Controllers
     [Route("api")]
     public class AuthController : MainController
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        public AuthController(SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings)
+        public AuthController(SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager, IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -30,10 +32,12 @@ namespace Back.Mercurio.Api.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 UserName = usuarioRegistro.Email,
                 Email = usuarioRegistro.Email,
+                EstadoId = usuarioRegistro.EstadoId,
+                CidadeId = usuarioRegistro.CidadeId,
                 EmailConfirmed = true
             };
 
@@ -85,12 +89,14 @@ namespace Back.Mercurio.Api.Controllers
             return ObterRespostaToken(encodedToken, user, claims);
         }
 
-        private async Task<ClaimsIdentity> ObterClaimsUsuario(ICollection<Claim> claims, IdentityUser user)
+        private async Task<ClaimsIdentity> ObterClaimsUsuario(ICollection<Claim> claims, ApplicationUser user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
 
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+            claims.Add(new Claim("Estado", user.EstadoId.ToString()));
+            claims.Add(new Claim("Cidade", user.CidadeId.ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));
@@ -123,7 +129,7 @@ namespace Back.Mercurio.Api.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        private UsuarioRespostaLogin ObterRespostaToken(string encodedToken, IdentityUser user, IEnumerable<Claim> claims)
+        private UsuarioRespostaLogin ObterRespostaToken(string encodedToken, ApplicationUser user, IEnumerable<Claim> claims)
         {
             return new UsuarioRespostaLogin
             {
@@ -133,6 +139,8 @@ namespace Back.Mercurio.Api.Controllers
                 {
                     Id = user.Id,
                     Email = user.Email,
+                    Estado = user.EstadoId,
+                    Cidade = user.CidadeId,
                     Claims = claims.Select(x => new UsuarioClaim { Type = x.Type, Value = x.Value })
                 }
             };

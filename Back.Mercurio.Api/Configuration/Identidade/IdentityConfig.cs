@@ -1,6 +1,7 @@
 ﻿using Back.Mercurio.Infrastructure.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Back.Mercurio.Infrastructure.Seed;
 
 namespace Back.Mercurio.Api.Configuration.Identidade
 {
@@ -11,7 +12,7 @@ namespace Back.Mercurio.Api.Configuration.Identidade
             services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddErrorDescriber<IdentityMensagensPortugues>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();

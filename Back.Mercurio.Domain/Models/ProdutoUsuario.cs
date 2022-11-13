@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-
 namespace Back.Mercurio.Domain.Models
 {
-    public class ProdutoUsuario : Entity, IAggregateRoot
+    public class ProdutoUsuario : EntityBase
     {
         public Guid ProdutoId { get; private set; }
         public virtual Produto Produto { get; private set; }
@@ -23,7 +21,6 @@ namespace Back.Mercurio.Domain.Models
         public virtual Cidade Cidade { get; private set; }
 
         public decimal Valor { get; private set; }
-        public bool Ativo { get; private set; }
 
         public ProdutoUsuario() { }
     }

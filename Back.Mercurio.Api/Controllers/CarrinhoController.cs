@@ -187,26 +187,26 @@ namespace Back.Mercurio.Api.Controllers
                 produtos.AddRange(await _produtoRepository.ObterProdutosPorNome(item.Nome));
             }
 
-            foreach (var itens in produtos.GroupBy(x => x.Nome).Select(x => x.ToList()).ToList())
-            {
-                foreach (var item in itens)
-                {
-                    var itemCarrinho = new CarrinhoItem(item.Id, item.Nome, carrinho.Itens.First(x => x.Nome == item.Nome).Quantidade, item.Valor, item.Imagem);
-                    if (carrinhos.Any(x => x.Mercado == item.Mercado.Nome))
-                    {
-                        carrinhos.First(x => x.Mercado == item.Mercado.Nome).AdicionarItem(itemCarrinho);
-                    }
-                    else
-                    {
-                        CarrinhoCliente carrinhoCliente = new();
-                        carrinhoCliente.AdicionarItem(itemCarrinho);
-                        carrinhos.Add(carrinho);
-                    }
-                }
-            }
+            //foreach (var itens in produtos.GroupBy(x => x.Nome).Select(x => x.ToList()).ToList())
+            //{
+            //    foreach (var item in itens)
+            //    {
+            //        var itemCarrinho = new CarrinhoItem(item.Id, item.Nome, carrinho.Itens.First(x => x.Nome == item.Nome).Quantidade, item.Valor, item.Imagem);
+            //        if (carrinhos.Any(x => x.Mercado == item.Mercado.Nome))
+            //        {
+            //            carrinhos.First(x => x.Mercado == item.Mercado.Nome).AdicionarItem(itemCarrinho);
+            //        }
+            //        else
+            //        {
+            //            CarrinhoCliente carrinhoCliente = new();
+            //            carrinhoCliente.AdicionarItem(itemCarrinho);
+            //            carrinhos.Add(carrinho);
+            //        }
+            //    }
+            //}
             carrinhos = carrinhos.Where(x => x.Itens.Count == carrinho.Itens.Count).ToList();
             var carrinhoValido = carrinhos.First(x => x.ValorTotal == carrinhos.Min(x => x.ValorTotal));
-            carrinhoValido.AdicionarMercado(produtos.First(x => x.Id == carrinhoValido.Itens.First().ProdutoId).Mercado.Nome);
+            //carrinhoValido.AdicionarMercado(produtos.First(x => x.Id == carrinhoValido.Itens.First().ProdutoId).Mercado.Nome);
 
             await _carrinhoRepository.Atualizar(carrinhoValido);
 

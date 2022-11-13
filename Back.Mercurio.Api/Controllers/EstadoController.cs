@@ -42,23 +42,24 @@ namespace Back.Mercurio.Api.Controllers
             }
         }
 
-        [HttpPost("Adicionar")]
-        [ProducesResponseType(typeof(Estado), (int)HttpStatusCode.Created)]
+        /// <summary>
+        /// Método para obter todas as Cidades de um determinado Estado
+        /// </summary>
+        [HttpGet("ObterCidadesPorEstado/{estadoId}")]
+        [ProducesResponseType(typeof(Estado), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> AdicionarEstado([FromBody, Required] EstadoViewModel estado)
+        public async Task<ActionResult<Estado>> ObterCidadesPorEstado(Guid estadoId)
         {
             try
             {
-                var estadoAdd = new Estado(estado.Sigla);
-                var result = await _estadoRepository.Adicionar(estadoAdd);
-
-                if (result)
+                var estado = await _estadoRepository.ObterPorId(estadoId);
+                if (estado is not null)
                 {
-                    return Created("Estado adicionado com sucesso!", estadoAdd);
+                    return Ok(estado);
                 }
 
-                AdicionarErroProcessamento("Erro ao adicionar o estado");
-                return CustomResponse();
+                return NoContent();
             }
             catch (Exception ex)
             {

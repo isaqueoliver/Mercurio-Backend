@@ -2,7 +2,7 @@
 
 namespace Back.Mercurio.Infrastructure.IRepository
 {
-    public interface IProdutoRepository : IRepository<Produto>
+    public interface IProdutoRepository
     {
         Task<IEnumerable<Produto>> ObterTodos();
         Task<Produto> ObterPorId(Guid id);

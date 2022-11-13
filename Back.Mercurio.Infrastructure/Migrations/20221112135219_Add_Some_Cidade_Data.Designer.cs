@@ -4,6 +4,7 @@ using Back.Mercurio.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Back.Mercurio.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221112135219_Add_Some_Cidade_Data")]
+    partial class Add_Some_Cidade_Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -13478,10 +13480,10 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CidadeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
-                    b.Property<DateTime?>("DataAlteracao")
+                    b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
@@ -13494,15 +13496,9 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("EstadoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UsuarioAlteracao")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UsuarioCriacao")
                         .HasColumnType("uniqueidentifier");
@@ -13511,10 +13507,6 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CidadeId");
-
-                    b.HasIndex("EstadoId");
 
                     b.ToTable("Mercados");
                 });
@@ -13525,32 +13517,41 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DataAlteracao")
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Categoria")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DataExclusao")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("IdMercado")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Imagem")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("MercadoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UsuarioAlteracao")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UsuarioCadastro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UsuarioCriacao")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UsuarioExclusao")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MercadoId");
 
                     b.ToTable("Produtos");
                 });
@@ -13702,6 +13703,10 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(14)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -13912,21 +13917,14 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Navigation("Estado");
                 });
 
-            modelBuilder.Entity("Back.Mercurio.Domain.Models.Mercado", b =>
+            modelBuilder.Entity("Back.Mercurio.Domain.Models.Produto", b =>
                 {
-                    b.HasOne("Back.Mercurio.Domain.Models.Cidade", "Cidade")
-                        .WithMany("Mercados")
-                        .HasForeignKey("CidadeId")
+                    b.HasOne("Back.Mercurio.Domain.Models.Mercado", "Mercado")
+                        .WithMany("Produtos")
+                        .HasForeignKey("MercadoId")
                         .IsRequired();
 
-                    b.HasOne("Back.Mercurio.Domain.Models.Estado", "Estado")
-                        .WithMany("Mercados")
-                        .HasForeignKey("EstadoId")
-                        .IsRequired();
-
-                    b.Navigation("Cidade");
-
-                    b.Navigation("Estado");
+                    b.Navigation("Mercado");
                 });
 
             modelBuilder.Entity("Back.Mercurio.Domain.Models.ProdutoUsuario", b =>
@@ -14062,20 +14060,15 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Navigation("Itens");
                 });
 
-            modelBuilder.Entity("Back.Mercurio.Domain.Models.Cidade", b =>
-                {
-                    b.Navigation("Mercados");
-                });
-
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Estado", b =>
                 {
                     b.Navigation("Cidades");
-
-                    b.Navigation("Mercados");
                 });
 
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Mercado", b =>
                 {
+                    b.Navigation("Produtos");
+
                     b.Navigation("ProdutosUsuarios");
 
                     b.Navigation("ProdutosValoresMedios");

@@ -20,5 +20,11 @@ namespace Back.Mercurio.Domain.Models
             Descricao = descricao;
             Ativo = ativo;
         }
+        public Assunto(Guid id, string descricao, bool ativo)
+        {
+            Id = id;
+            Descricao = descricao;
+            Ativo = ativo;
+        }
     }
 }

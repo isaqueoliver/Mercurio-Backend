@@ -34,7 +34,7 @@ namespace Back.Mercurio.Api.Controllers
             try
             {
                 var reportes = await _reporteRepository.ObterTodosPorUsuarioId(_user.ObterUserId());
-                if (reportes is not null && reportes.Any())
+                if (reportes.Any())
                 {
                     return Ok(reportes);
                 }

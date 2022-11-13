@@ -16,5 +16,10 @@ namespace Back.Mercurio.Api.Models
                 yield return new AssuntoViewModel { Id = assunto.Id, Descricao = assunto.Descricao };
             }
         }
+
+        public static IEnumerable<CidadeViewModel> CidadeMapToCidadeViewModel(this IEnumerable<Cidade> cidades)
+        {
+            return cidades.Select(x => new CidadeViewModel(x.Id, x.Nome));
+        }
     }
 }

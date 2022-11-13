@@ -51,7 +51,7 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
-                var mercadoAdd = new Mercado(mercado.Nome, mercado.Endereco);
+                var mercadoAdd = new Mercado(mercado.Nome, mercado.EstadoId, mercado.CidadeId, mercado.Endereco);
                 var result = await _mercadoRepository.Adicionar(mercadoAdd);
 
                 if (result)
@@ -96,7 +96,7 @@ namespace Back.Mercurio.Api.Controllers
 
         private static IEnumerable<MercadoViewModel> ParaMercadoViewModel(IEnumerable<Mercado> mercados)
         {
-            return mercados.Select(x => new MercadoViewModel(x.Id, x.Nome, x.Endereco));
+            return mercados.Select(x => new MercadoViewModel(x.Id, x.Nome, x.EstadoId, x.CidadeId, x.Endereco));
         }
     }
 }

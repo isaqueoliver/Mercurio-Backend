@@ -22,51 +22,21 @@ namespace Back.Mercurio.Api.Controllers
         /// <summary>
         /// Método para obter todos os Cidades
         /// </summary>
-        [HttpGet("ObterTodos")]
-        [ProducesResponseType(typeof(IEnumerable<Cidade>), (int)HttpStatusCode.OK)]
+        [HttpGet("ObterTodasPorEstado/{estadoId}")]
+        [ProducesResponseType(typeof(IEnumerable<CidadeViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<IEnumerable<Cidade>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<CidadeViewModel>>> ObterTodasCidadesPorEstado(Guid estadoId)
         {
             try
             {
-                var cidades = await _cidadeRepository.ObterTodos();
-                if (cidades is not null && cidades.Any())
+                var cidades = await _cidadeRepository.ObterTodasCidadesPorEstadoId(estadoId);
+                if (cidades.Any())
                 {
-                    return Ok(cidades);
+                    return Ok(cidades.CidadeMapToCidadeViewModel());
                 }
 
                 return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return CustomResponse(ex);
-            }
-        }
-
-        [HttpPost("Adicionar")]
-        [ProducesResponseType(typeof(Cidade), (int)HttpStatusCode.Created)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> AdicionarCidade([FromBody, Required] CidadeViewModel cidade)
-        {
-            try
-            {
-                var estado = await _estadoRepository.ObterPorId(cidade.IdEstado);
-                if(estado is null)
-                {
-                    return CustomResponse("Estado não foi encontrado!");
-                }
-
-                var cidadeAdd = new Cidade(cidade.Nome, estado);
-                var result = await _cidadeRepository.Adicionar(cidadeAdd);
-
-                if (result)
-                {
-                    return Created("Cidade adicionado com sucesso!", cidadeAdd);
-                }
-
-                AdicionarErroProcessamento("Erro ao adicionar o cidade");
-                return CustomResponse();
             }
             catch (Exception ex)
             {
@@ -79,6 +49,7 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
+                List<string> cidadeString = new List<string>();
                 var estado = await _estadoRepository.ObterPorId(idEstado);
                 if (estado is null)
                 {
@@ -88,13 +59,11 @@ namespace Back.Mercurio.Api.Controllers
                 foreach (var cidade in cidades)
                 {
                     var nome = cidade.Split(":")[1];
-                    var cidadeAdd = new Cidade(nome, estado);
-                    var result = await _cidadeRepository.Adicionar(cidadeAdd);
-
-                    if(result is false) AdicionarErroProcessamento("Erro ao adicionar o cidade");
+                    var cidadeAdd = new Cidade(nome, estado.Id);
+                    cidadeString.Add($"new Cidade(new Guid({cidadeAdd.Id}), {nome}, new Guid({estado.Id}))");
                 }
 
-                return CustomResponse();
+                return CustomResponse(cidadeString);
             }
             catch(Exception ex)
             {

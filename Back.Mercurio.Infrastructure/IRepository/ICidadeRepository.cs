@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Back.Mercurio.Infrastructure.IRepository
 {
-    public interface ICidadeRepository : IRepository<Cidade>
+    public interface ICidadeRepository
     {
-        Task<IEnumerable<Cidade>> ObterTodos();
-        Task<bool> Adicionar(Cidade cidade);
+        Task<IEnumerable<Cidade>> ObterTodasCidadesPorEstadoId(Guid estadoId);
     }
 }

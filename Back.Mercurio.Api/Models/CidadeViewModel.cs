@@ -1,14 +1,14 @@
 ﻿namespace Back.Mercurio.Api.Models
 {
-    public class CidadeViewModel
+    public struct CidadeViewModel
     {
-        public Guid IdEstado { get; set; }
+        public Guid Id { get; set; }
         public string Nome { get; set; }
 
-        public CidadeViewModel(string nome, Guid idEstado)
+        public CidadeViewModel(Guid id, string nome)
         {
+            Id = id;
             Nome = nome;
-            IdEstado = idEstado;
         }
     }
 }

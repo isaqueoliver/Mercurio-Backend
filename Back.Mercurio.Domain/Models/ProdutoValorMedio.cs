@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Back.Mercurio.Domain.Models
 {
-    public class ProdutoValorMedio : Entity, IAggregateRoot
+    public class ProdutoValorMedio : Entity
     {
         public Guid ProdutoId { get; private set; }
         public virtual Produto Produto { get; private set; }
@@ -23,6 +23,8 @@ namespace Back.Mercurio.Domain.Models
 
         public decimal Valor { get; private set; }
         public bool Ativo { get; private set; }
+        public DateTime DataCriacao { get; private set; }
+        public DateTime DataAlteracao { get; private set; }
 
         public ProdutoValorMedio() { }
     }

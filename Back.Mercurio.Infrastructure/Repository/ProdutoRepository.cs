@@ -18,17 +18,17 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<Produto>> ObterTodos()
         {
-            return await _context.Produtos.AsNoTracking().Include(x => x.Mercado).ToListAsync();
+            return await _context.Produtos.AsNoTracking().ToListAsync();
         }
 
         public async Task<Produto> ObterPorId(Guid id)
         {
-            return await _context.Produtos.Include(x => x.Mercado).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Produtos.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Produto>> ObterProdutosPorNome(string nome)
         {
-            return await _context.Produtos.AsNoTracking().Include(x => x.Mercado).Where(x => x.Nome == nome).ToListAsync();
+            return await _context.Produtos.AsNoTracking().Where(x => x.Nome == nome).ToListAsync();
         }
 
         public async Task<bool> Adicionar(Produto produto)

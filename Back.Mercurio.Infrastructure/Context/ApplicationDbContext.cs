@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Back.Mercurio.Infrastructure.Context
 {
-    public class ApplicationDbContext : IdentityDbContext, IUnitOfWork
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IUnitOfWork
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         {
@@ -15,19 +15,21 @@ namespace Back.Mercurio.Infrastructure.Context
         }
 
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<ProdutoUsuario> ProdutoUsuarios { get; set; }
+        public DbSet<ProdutoValorMedio> ProdutosValoresMedios { get; set; }
         public DbSet<Mercado> Mercados { get; set; }
         public DbSet<CarrinhoItem> CarrinhoItens { get; set; }
         public DbSet<CarrinhoCliente> CarrinhoCliente { get; set; }
         public DbSet<Estado> Estados { get; set; }
         public DbSet<Cidade> Cidades { get; set; }
-        public DbSet<ProdutoUsuario> ProdutoUsuarios { get; set; }
-        public DbSet<ProdutoValorMedio> ProdutoValorMedios { get; set; }
         public DbSet<Reporte> Reportes { get; set; }
         public DbSet<Assunto> Assuntos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.CreateAssunto();
+            modelBuilder.CreateEstado();
+            modelBuilder.CreateCidade();
 
             modelBuilder.Entity<CarrinhoCliente>()
                         .HasIndex(x => x.ClienteId)

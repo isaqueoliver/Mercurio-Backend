@@ -14,28 +14,30 @@ namespace Back.Mercurio.Infrastructure.Mapping
                 .IsRequired()
                 .HasColumnType("varchar(250)");
 
-            builder.Property(x => x.Categoria)
-                .IsRequired(false)
-                .HasColumnType("varchar(250)");
-
-            builder.Property(x => x.Descricao)
+            builder.Property(x => x.Imagem)
                 .IsRequired(false)
                 .HasColumnType("varchar(500)");
 
-            builder.Property(x => x.Imagem)
-                .IsRequired(false)
-                .HasColumnType("varchar(250)");
+            builder.Property(x => x.DataCriacao)
+                .IsRequired();
 
-            builder.Property(x => x.UsuarioCadastro)
+            builder.Property(x => x.UsuarioCriacao)
                 .IsRequired()
                 .HasColumnType("varchar(36)");
 
-            //builder.Property(x => x.IdMercado)
-            //    .IsRequired();
+            builder.Property(x => x.DataAlteracao)
+                .IsRequired(false);
 
-            builder.HasOne(x => x.Mercado)
-                .WithMany(x => x.Produtos)
-                .HasForeignKey(x => x.IdMercado);
+            builder.Property(x => x.UsuarioAlteracao)
+                .IsRequired(false)
+                .HasColumnType("varchar(36)");
+
+            builder.Property(x => x.DataExclusao)
+                .IsRequired(false);
+
+            builder.Property(x => x.UsuarioExclusao)
+                .IsRequired(false)
+                .HasColumnType("varchar(36)");
 
             builder.ToTable("Produtos");
         }

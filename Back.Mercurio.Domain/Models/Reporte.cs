@@ -11,7 +11,9 @@ namespace Back.Mercurio.Domain.Models
     {
         public string Descricao { get; private set; }
         public Status Status { get; private set; }
-        public string Resposta { get;private set; }
+        public string? Resposta { get; private set; }
+        public DateTime? DataAlteracao { get; private set; }
+        public Guid? UsuarioAlteracao { get; private set; }
 
         public Guid AssuntoId { get; private set; }
         public virtual Assunto Assunto { get; private set; }

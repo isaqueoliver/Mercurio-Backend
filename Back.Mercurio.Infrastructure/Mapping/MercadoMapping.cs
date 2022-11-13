@@ -16,10 +16,36 @@ namespace Back.Mercurio.Infrastructure.Mapping
 
             builder.Property(x => x.Endereco)
                 .IsRequired(false)
-                .HasColumnType("varchar(500)");
+                .HasColumnType("varchar(250)");
 
-            builder.HasMany(x => x.Produtos)
-                .WithOne(x => x.Mercado);
+            builder.HasOne(x => x.Estado)
+                .WithMany(x => x.Mercados)
+                .HasForeignKey(x => x.EstadoId);
+
+            builder.HasOne(x => x.Cidade)
+                .WithMany(x => x.Mercados)
+                .HasForeignKey(x => x.CidadeId);
+
+            builder.Property(x => x.DataCriacao)
+                .IsRequired();
+
+            builder.Property(x => x.UsuarioCriacao)
+                .IsRequired()
+                .HasColumnType("varchar(36)");
+
+            builder.Property(x => x.DataAlteracao)
+                .IsRequired(false);
+
+            builder.Property(x => x.UsuarioAlteracao)
+                .IsRequired(false)
+                .HasColumnType("varchar(36)");
+
+            builder.Property(x => x.DataExclusao)
+                .IsRequired(false);
+
+            builder.Property(x => x.UsuarioExclusao)
+                .IsRequired(false)
+                .HasColumnType("varchar(36)");
 
             builder.ToTable("Mercados");
         }

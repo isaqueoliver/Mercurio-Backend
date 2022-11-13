@@ -26,7 +26,7 @@ namespace Back.Mercurio.Infrastructure.Mapping
             builder.Property(x => x.Status)
                 .IsRequired();
 
-            builder.Property(x => x.DataCricao)
+            builder.Property(x => x.DataCriacao)
                 .IsRequired();
 
             builder.Property(x => x.UsuarioCriacao)

@@ -40,6 +40,9 @@ namespace Back.Mercurio.Api.Configuration
             services.AddScoped<IEstadoRepository, EstadoRepository>();
             services.AddScoped<ICidadeRepository, CidadeRepository>();
             services.AddScoped<IAssuntoRepository, AssuntoRepository>();
+            services.AddScoped<IReporteRepository, ReporteRepository>();
+            services.AddScoped<IProdutoUsuarioRepository, ProdutoUsuarioRepository>();
+            services.AddScoped<IProdutoValorMedioRepository, ProdutoValorMedioRepository>();
 
             return services;
         }

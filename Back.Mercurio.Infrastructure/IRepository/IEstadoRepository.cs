@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Back.Mercurio.Infrastructure.IRepository
 {
-    public interface IEstadoRepository : IRepository<Estado>
+    public interface IEstadoRepository
     {
         Task<IEnumerable<Estado>> ObterTodos();
         Task<Estado> ObterPorId(Guid idEstado);

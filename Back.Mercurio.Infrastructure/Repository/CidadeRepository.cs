@@ -21,15 +21,9 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<IEnumerable<Cidade>> ObterTodos()
+        public async Task<IEnumerable<Cidade>> ObterTodasCidadesPorEstadoId(Guid estadoId)
         {
-            return await _context.Cidades.AsNoTracking().ToListAsync();
-        }
-
-        public async Task<bool> Adicionar(Cidade cidade)
-        {
-            _context.Cidades.Add(cidade);
-            return await _context.Commit();
+            return await _context.Cidades.AsNoTracking().Where(x => x.EstadoId == estadoId).ToListAsync();
         }
 
         public void Dispose()

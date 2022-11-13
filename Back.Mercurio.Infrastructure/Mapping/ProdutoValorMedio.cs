@@ -6,22 +6,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Back.Mercurio.Infrastructure.Mapping
 {
-    public class ProdutoUsuarioMapping : IEntityTypeConfiguration<ProdutoUsuario>
+    public class ProdutoValorMedioMapping : IEntityTypeConfiguration<ProdutoValorMedio>
     {
-        public void Configure(EntityTypeBuilder<ProdutoUsuario> builder)
+        public void Configure(EntityTypeBuilder<ProdutoValorMedio> builder)
         {
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.Produto)
-                .WithMany(x => x.ProdutoUsuarios)
+                .WithMany(x => x.ProdutosValoresMedios)
                 .HasForeignKey(x => x.ProdutoId);
 
             builder.HasOne(x => x.Mercado)
-                .WithMany(x => x.ProdutosUsuarios)
+                .WithMany(x => x.ProdutosValoresMedios)
                 .HasForeignKey(x => x.MercadoId);
 
             builder.Property(x => x.EstadoId)
@@ -34,21 +33,13 @@ namespace Back.Mercurio.Infrastructure.Mapping
 
             builder.Property(x => x.Valor);
 
-            builder.Property(x => x.DataCriacao)
-                .IsRequired();
+            builder.Property(x => x.Ativo);
 
-            builder.Property(x => x.UsuarioCriacao)
-                .IsRequired()
-                .HasColumnType("varchar(36)");
+            builder.Property(x => x.DataCriacao);
 
-            builder.Property(x => x.DataExclusao)
-                .IsRequired(false);
+            builder.Property(x => x.DataAlteracao);
 
-            builder.Property(x => x.UsuarioExclusao)
-                .IsRequired(false)
-                .HasColumnType("varchar(36)");
-
-            builder.ToTable("ProdutosUsuarios");
+            builder.ToTable("ProdutosValoresMedios");
         }
     }
 }

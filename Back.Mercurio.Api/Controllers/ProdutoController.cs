@@ -13,11 +13,9 @@ namespace Back.Mercurio.Api.Controllers
     public class ProdutoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
-        private readonly IMercadoRepository _mercadoRepository;
-        public ProdutoController(IProdutoRepository produtoRepository, IMercadoRepository mercadoRepository)
+        public ProdutoController(IProdutoRepository produtoRepository)
         {
             _produtoRepository = produtoRepository;
-            _mercadoRepository = mercadoRepository;
         }
 
         /// <summary>
@@ -56,15 +54,7 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
-                var mercado = await _mercadoRepository.ObterPorNome(produto.Mercado);
-
-                if (mercado is null)
-                {
-                    AdicionarErroProcessamento("Mercado não existente na base de dados.");
-                    return CustomResponse();
-                }
-
-                var produtoAdd = new Produto(produto.Nome, produto.Valor, mercado, produto.Imagem);
+                var produtoAdd = new Produto(produto.Nome, produto.Imagem);
                 var result = await _produtoRepository.Adicionar(produtoAdd);
 
                 if (result)
@@ -112,7 +102,7 @@ namespace Back.Mercurio.Api.Controllers
             List<ProdutoViewModel> produtoViewModels = new List<ProdutoViewModel>(produtos.Count());
             foreach (var produto in produtos)
             {
-                produtoViewModels.Add(new ProdutoViewModel(produto.Id, produto.Nome, produto.Mercado.Nome, produto.Valor, produto.Imagem));
+                produtoViewModels.Add(new ProdutoViewModel(produto.Id, produto.Nome, produto.Imagem));
             }
             return produtoViewModels;
         }

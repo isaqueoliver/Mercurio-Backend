@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Back.Mercurio.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221109004022_Add_Tables_Assunto_Reporte_ProdutoUsuario")]
-    partial class Add_Tables_Assunto_Reporte_ProdutoUsuario
+    [Migration("20221112120546_Add_New_Colums_Identity_User")]
+    partial class Add_New_Colums_Identity_User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,13 +44,13 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0d5c299e-90d6-4b11-a082-5a28f7cf5d8b"),
+                            Id = new Guid("f647d069-0d8b-4407-bba8-77aed5bf3143"),
                             Ativo = true,
                             Descricao = "Falta o nome de um Supermercado ou Mercado"
                         },
                         new
                         {
-                            Id = new Guid("b60bbfa3-098c-457b-8b2e-1b84a0dc4275"),
+                            Id = new Guid("59d70ebd-45c2-422c-97d4-a72196b869bf"),
                             Ativo = true,
                             Descricao = "Falta o nome de um Produto ou informação do Produto"
                         });
@@ -156,13 +156,10 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataCricao")
+                    b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DataExclusao")
@@ -175,9 +172,6 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UsuarioAlteracao")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UsuarioCriacao")
                         .HasColumnType("uniqueidentifier");
@@ -241,11 +235,14 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("CidadeId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DataExclusao")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("EstadoId")
                         .HasColumnType("uniqueidentifier");
@@ -254,6 +251,12 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioCriacao")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UsuarioExclusao")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Valor")
@@ -284,6 +287,12 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<Guid>("CidadeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("EstadoId")
                         .HasColumnType("uniqueidentifier");
 
@@ -306,7 +315,7 @@ namespace Back.Mercurio.Infrastructure.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("ProdutoValorMedios");
+                    b.ToTable("ProdutosValoresMedios");
                 });
 
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Reporte", b =>
@@ -321,7 +330,7 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataCricao")
+                    b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DataExclusao")
@@ -332,7 +341,6 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Resposta")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
@@ -352,6 +360,81 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.HasIndex("AssuntoId");
 
                     b.ToTable("Reportes");
+                });
+
+            modelBuilder.Entity("Back.Mercurio.Infrastructure.Seed.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CidadeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("EstadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -404,71 +487,6 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -626,12 +644,12 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Back.Mercurio.Domain.Models.Mercado", "Mercado")
-                        .WithMany()
+                        .WithMany("ProdutosValoresMedios")
                         .HasForeignKey("MercadoId")
                         .IsRequired();
 
                     b.HasOne("Back.Mercurio.Domain.Models.Produto", "Produto")
-                        .WithMany()
+                        .WithMany("ProdutosValoresMedios")
                         .HasForeignKey("ProdutoId")
                         .IsRequired();
 
@@ -665,7 +683,7 @@ namespace Back.Mercurio.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Back.Mercurio.Infrastructure.Seed.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -674,7 +692,7 @@ namespace Back.Mercurio.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Back.Mercurio.Infrastructure.Seed.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -689,7 +707,7 @@ namespace Back.Mercurio.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Back.Mercurio.Infrastructure.Seed.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -698,7 +716,7 @@ namespace Back.Mercurio.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Back.Mercurio.Infrastructure.Seed.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -725,11 +743,15 @@ namespace Back.Mercurio.Infrastructure.Migrations
                     b.Navigation("Produtos");
 
                     b.Navigation("ProdutosUsuarios");
+
+                    b.Navigation("ProdutosValoresMedios");
                 });
 
             modelBuilder.Entity("Back.Mercurio.Domain.Models.Produto", b =>
                 {
                     b.Navigation("ProdutoUsuarios");
+
+                    b.Navigation("ProdutosValoresMedios");
                 });
 #pragma warning restore 612, 618
         }

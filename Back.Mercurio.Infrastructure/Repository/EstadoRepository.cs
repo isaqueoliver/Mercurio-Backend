@@ -23,7 +23,7 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<Estado>> ObterTodos()
         {
-            return await _context.Estados.Include(x => x.Cidades).AsNoTracking().ToListAsync();
+            return await _context.Estados.AsNoTracking().OrderBy(x => x.Sigla).ToListAsync();
         }
 
         public async Task<Estado> ObterPorId(Guid idEstado)
