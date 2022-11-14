@@ -8,6 +8,8 @@ namespace Back.Mercurio.Api.Usuario
         Guid ObterUserId();
         string ObterUserEmail();
         string ObterUserToken();
+        Guid ObterEstadoId();
+        Guid ObterCidadeId();
         bool EstaAutenticado();
         bool PossuiRole(string role);
         IEnumerable<Claim> ObterClaims();

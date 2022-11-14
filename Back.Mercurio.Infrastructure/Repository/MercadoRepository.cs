@@ -16,9 +16,12 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<IEnumerable<Mercado>> ObterTodos()
+        public async Task<IEnumerable<Mercado>> ObterTodosPorEstadoECidade(Guid estadoId, Guid cidadeId)
         {
-            return await _context.Mercados.AsNoTracking().Where(x => x.DataExclusao != null).ToListAsync();
+            return await _context.Mercados.Include(x => x.Estado).Include(x => x.Cidade)
+                                          .AsNoTracking().Where(x => x.EstadoId == estadoId &&
+                                                                     x.CidadeId == cidadeId &&
+                                                                     x.DataExclusao == null).ToListAsync();
         }
 
         public async Task<Mercado> ObterPorNome(string nome)

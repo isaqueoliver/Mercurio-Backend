@@ -29,10 +29,10 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
-                var result = ParaProdutoViewModel(await _produtoRepository.ObterTodos());
-                if (result is not null && result.Any())
+                var result = await _produtoRepository.ObterTodos();
+                if (result.Any())
                 {
-                    return Ok(result);
+                    return Ok(result.ProdutoMapToProdutoViewModel());
                 }
 
                 return NoContent();
@@ -69,42 +69,6 @@ namespace Back.Mercurio.Api.Controllers
             {
                 return CustomResponse(ex);
             }
-        }
-
-        [HttpDelete("Remover/{produtoId}")]
-        [ProducesResponseType(typeof(Produto), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult> Remover(Guid produtoId)
-        {
-            try
-            {
-                var produto = await _produtoRepository.ObterPorId(produtoId);
-
-                if (produto is null)
-                {
-                    AdicionarErroProcessamento("Não foi possível encontrar o produto no sistema.");
-                    return CustomResponse();
-                }
-
-                await _produtoRepository.Remover(produto);
-
-                return CustomResponse(produto);
-            }
-            catch (Exception ex)
-            {
-                return CustomResponse(ex);
-            }
-        }
-
-        private static List<ProdutoViewModel> ParaProdutoViewModel(IEnumerable<Produto> produtos)
-        {
-            List<ProdutoViewModel> produtoViewModels = new List<ProdutoViewModel>(produtos.Count());
-            foreach (var produto in produtos)
-            {
-                produtoViewModels.Add(new ProdutoViewModel(produto.Id, produto.Nome, produto.Imagem));
-            }
-            return produtoViewModels;
         }
     }
 }

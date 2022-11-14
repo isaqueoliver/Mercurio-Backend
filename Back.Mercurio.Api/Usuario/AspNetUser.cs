@@ -28,6 +28,16 @@ namespace Back.Mercurio.Api.Usuario
             return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken() : "";
         }
 
+        public Guid ObterEstadoId()
+        {
+            return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserEstado()) : Guid.Empty;
+        }
+
+        public Guid ObterCidadeId()
+        {
+            return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserCidade()) : Guid.Empty;
+        }
+
         public bool EstaAutenticado()
         {
             return _accessor.HttpContext.User.Identity.IsAuthenticated;

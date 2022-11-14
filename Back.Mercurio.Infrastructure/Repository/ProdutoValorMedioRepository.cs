@@ -22,17 +22,39 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
+        public async Task<bool> Adicionar(ProdutoValorMedio produto)
+        {
+            _context.ProdutosValoresMedios.Add(produto);
+            return await _context.Commit();
+        }
+
+        public async Task<bool> Atualizar(ProdutoValorMedio produto)
+        {
+            _context.ProdutosValoresMedios.Update(produto);
+            return await _context.Commit();
+        }
+
         public async Task<IEnumerable<ProdutoValorMedio>> ObterTodosPorEstadoECidade(Guid estadoId, Guid cidadeId)
         {
-            return await _context.ProdutosValoresMedios.Where(x => x.EstadoId == estadoId &&
+            return await _context.ProdutosValoresMedios.Include(x => x.Mercado)
+                                                       .Include(x => x.Produto)
+                                                       .Where(x => x.EstadoId == estadoId &&
                                                                    x.CidadeId == cidadeId &&
-                                                                   x.Ativo).ToListAsync();
+                                                                   x.Ativo)
+                                                       .ToListAsync();
         }
 
         public async Task<IEnumerable<ProdutoValorMedio>> ObterTodosPorMercado(Guid mercadoId)
         {
             return await _context.ProdutosValoresMedios.Where(x => x.MercadoId == mercadoId &&
                                                                    x.Ativo).ToListAsync();
+        }
+
+        public async Task<ProdutoValorMedio> ObterPorMercadoEProduto(Guid mercadoId, Guid produtoId)
+        {
+            return await _context.ProdutosValoresMedios.Include(x => x.Produto).SingleOrDefaultAsync(x => x.MercadoId == mercadoId &&
+                                                                                  x.ProdutoId == produtoId &&
+                                                                                  x.Ativo);
         }
     }
 }

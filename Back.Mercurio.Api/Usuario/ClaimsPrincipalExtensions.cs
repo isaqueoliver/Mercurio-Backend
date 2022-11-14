@@ -36,5 +36,27 @@ namespace Back.Mercurio.Api.Usuario
             var claim = principal.FindFirst("JWT");
             return claim?.Value;
         }
+
+        public static string GetUserEstado(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new ArgumentException(nameof(principal));
+            }
+
+            var claim = principal.FindFirst("estado");
+            return claim?.Value;
+        }
+
+        public static string GetUserCidade(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new ArgumentException(nameof(principal));
+            }
+
+            var claim = principal.FindFirst("cidade");
+            return claim?.Value;
+        }
     }
 }

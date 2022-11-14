@@ -6,6 +6,7 @@ namespace Back.Mercurio.Domain.Models
     {
         public string Nome { get; private set; }
         public string Endereco { get; private set; }
+        public string Imagem { get; private set; }
         public DateTime? DataAlteracao { get; private set; }
         public Guid? UsuarioAlteracao { get; private set; }
 
@@ -19,13 +20,14 @@ namespace Back.Mercurio.Domain.Models
         public virtual List<ProdutoValorMedio> ProdutosValoresMedios { get; private set; }
 
         public Mercado() { }
-        public Mercado(string nome, Guid estadoId, Guid cidadeId, string endereco)
+        public Mercado(string nome, Guid estadoId, Guid cidadeId, string endereco, string imagem)
         {
             Nome = nome;
             Endereco = endereco;
             DataCriacao = DateTime.UtcNow;
             CidadeId = cidadeId;
             EstadoId = estadoId;
+            Imagem = imagem;
         }
     }
 }

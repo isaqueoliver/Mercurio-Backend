@@ -27,5 +27,19 @@ namespace Back.Mercurio.Domain.Models
         public DateTime DataAlteracao { get; private set; }
 
         public ProdutoValorMedio() { }
+        public ProdutoValorMedio(Guid produtoId, Guid mercadoId, Guid estadoId, Guid cidadeId, decimal valor)
+        {
+            ProdutoId = produtoId;
+            MercadoId = mercadoId;
+            EstadoId = estadoId;
+            CidadeId = cidadeId;
+            Valor = valor;
+            Ativo = true;
+        }
+
+        public void AtualizarValor(decimal valor)
+        {
+            Valor = valor;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Back.Mercurio.Api.Models;
+using Back.Mercurio.Api.Usuario;
 using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
 using Microsoft.AspNetCore.Authorization;
@@ -13,27 +14,29 @@ namespace Back.Mercurio.Api.Controllers
     public class MercadoController : MainController
     {
         private readonly IMercadoRepository _mercadoRepository;
-        public MercadoController(IMercadoRepository mercadoRepository)
+        private readonly IAspNetUser _user;
+        public MercadoController(IMercadoRepository mercadoRepository,
+            IAspNetUser user)
         {
             _mercadoRepository = mercadoRepository;
+            _user = user;
         }
 
         /// <summary>
         /// Método para obter todos os Mercados
         /// </summary>
-        [HttpGet("ObterTodos")]
+        [HttpGet("ObterPorEstadoECidade/{estadoId}/{cidadeId}")]
         [ProducesResponseType(typeof(IEnumerable<MercadoViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<IEnumerable<MercadoViewModel>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<MercadoViewModel>>> ObterTodosPorEstadoECidade(Guid estadoId, Guid cidadeId)
         {
             try
             {
-                var teste = await _mercadoRepository.ObterTodos();
-                var result = ParaMercadoViewModel(await _mercadoRepository.ObterTodos());
-                if (result is not null && result.Any())
+                var result = await _mercadoRepository.ObterTodosPorEstadoECidade(estadoId, cidadeId);
+                if (result.Any())
                 {
-                    return Ok(result);
+                    return Ok(result.MercadoMapToMercadoViewModel());
                 }
 
                 return NoContent();
@@ -47,11 +50,11 @@ namespace Back.Mercurio.Api.Controllers
         [HttpPost("Adicionar")]
         [ProducesResponseType(typeof(Mercado), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> Adicionar([FromBody, Required] MercadoViewModel mercado)
+        public async Task<ActionResult> Adicionar([FromBody, Required] MercadoDTO mercado)
         {
             try
             {
-                var mercadoAdd = new Mercado(mercado.Nome, mercado.EstadoId, mercado.CidadeId, mercado.Endereco);
+                var mercadoAdd = new Mercado(mercado.Nome, mercado.EstadoId, mercado.CidadeId, mercado.Endereco, mercado.Imagem);
                 var result = await _mercadoRepository.Adicionar(mercadoAdd);
 
                 if (result)
@@ -92,11 +95,6 @@ namespace Back.Mercurio.Api.Controllers
             {
                 return CustomResponse(ex);
             }
-        }
-
-        private static IEnumerable<MercadoViewModel> ParaMercadoViewModel(IEnumerable<Mercado> mercados)
-        {
-            return mercados.Select(x => new MercadoViewModel(x.Id, x.Nome, x.EstadoId, x.CidadeId, x.Endereco));
         }
     }
 }

@@ -15,23 +15,35 @@ namespace Back.Mercurio.Api.Controllers
         private readonly IAspNetUser _user;
         private readonly ICarrinhoRepository _carrinhoRepository;
         private readonly IProdutoRepository _produtoRepository;
+        private readonly IProdutoValorMedioRepository _produtoValorMedioRepository;
 
-        public CarrinhoController(IAspNetUser user, ICarrinhoRepository carrinhoRepository, IProdutoRepository produtoRepository)
+        public CarrinhoController(IAspNetUser user,
+            ICarrinhoRepository carrinhoRepository,
+            IProdutoRepository produtoRepository,
+            IProdutoValorMedioRepository produtoValorMedioRepository)
         {
             _user = user;
             _carrinhoRepository = carrinhoRepository;
             _produtoRepository = produtoRepository;
+            _produtoValorMedioRepository = produtoValorMedioRepository;
         }
 
         [HttpPost("Adicionar-Item")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> AdicionarItemCarrinho(ItemCarrinhoDto item)
+        public async Task<ActionResult> AdicionarItemCarrinho(ItemCarrinhoViewModel itemCarrinho)
         {
             try
             {
+                var produto = await _produtoValorMedioRepository.ObterPorMercadoEProduto(itemCarrinho.MercadoId, itemCarrinho.ProdutoId);
+                if(produto is null)
+                {
+                    AdicionarErroProcessamento("Produto não foi encontrado!");
+                    return CustomResponse();
+                }
+
                 var carrinho = await _carrinhoRepository.ObterCarrinhoCliente(_user.ObterUserId());
-                var carrinhoItem = item.ParaCarrinhoItem();
+                var carrinhoItem = new CarrinhoItem(produto.Id, produto.Produto.Nome, 1, produto.Valor, produto.Produto?.Imagem);
 
                 if (carrinho is null)
                 {
@@ -135,14 +147,14 @@ namespace Back.Mercurio.Api.Controllers
         private async Task<CarrinhoCliente> ManipularNovoCarrinho(CarrinhoItem item)
         {
             var carrinho = new CarrinhoCliente(_user.ObterUserId());
-            var produto = await _produtoRepository.ObterPorId(item.ProdutoId);
+            
 
             carrinho.AdicionarItem(item);
-            if (produto is null)
-            {
-                AdicionarErroProcessamento($"Item: {item.Nome} não existente na lista de produtos.");
-                return carrinho;
-            }
+            //if (produto is null)
+            //{
+            //    AdicionarErroProcessamento($"Item: {item.Nome} não existente na lista de produtos.");
+            //    return carrinho;
+            //}
 
             //carrinho.Mercado = produto.Mercado?.Nome;
 

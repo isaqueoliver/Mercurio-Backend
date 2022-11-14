@@ -106,7 +106,7 @@ namespace Back.Mercurio.Domain.Models
 
         public Guid CarrinhoId { get; private set; }
         [JsonIgnore]
-        public CarrinhoCliente CarrinhoCliente { get; private set; }
+        public virtual CarrinhoCliente CarrinhoCliente { get; private set; }
 
         public CarrinhoItem(Guid produtoId, string nome, int quantidade, decimal valor, string imagem)
         {

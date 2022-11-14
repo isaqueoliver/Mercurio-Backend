@@ -16,7 +16,7 @@ namespace Back.Mercurio.Infrastructure.Mapping
 
             builder.Property(x => x.Imagem)
                 .IsRequired(false)
-                .HasColumnType("varchar(500)");
+                .HasColumnType("nvarchar(max)");
 
             builder.Property(x => x.DataCriacao)
                 .IsRequired();

@@ -18,6 +18,10 @@ namespace Back.Mercurio.Infrastructure.Mapping
                 .IsRequired(false)
                 .HasColumnType("varchar(250)");
 
+            builder.Property(x => x.Imagem)
+                .IsRequired(false)
+                .HasColumnType("nvarchar(max)");
+
             builder.HasOne(x => x.Estado)
                 .WithMany(x => x.Mercados)
                 .HasForeignKey(x => x.EstadoId);

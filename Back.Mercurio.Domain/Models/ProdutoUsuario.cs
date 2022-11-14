@@ -23,5 +23,13 @@ namespace Back.Mercurio.Domain.Models
         public decimal Valor { get; private set; }
 
         public ProdutoUsuario() { }
+        public ProdutoUsuario(Guid produtoId, Guid mercadoId, Guid estadoId, Guid cidadeId, decimal valor)
+        {
+            ProdutoId = produtoId;
+            MercadoId = mercadoId;
+            EstadoId = estadoId;
+            CidadeId = cidadeId;
+            Valor = valor;
+        }
     }
 }
