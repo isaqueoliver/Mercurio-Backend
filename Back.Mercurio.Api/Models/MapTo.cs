@@ -53,5 +53,12 @@ namespace Back.Mercurio.Api.Models
             return produtos.Select(x => new ProdutoValorMedioModelView(x.ProdutoId, x.Produto.Nome, x.MercadoId, x.Mercado.Nome, x.Produto.Imagem, x.Valor));
         }
         #endregion
+
+        #region Reporte
+        public static IEnumerable<ReporteModelView> ReporteMapToReporteModelView(this IEnumerable<Reporte> reportes)
+        {
+            return reportes.Select(x => new ReporteModelView(x.Id, x.Assunto.Descricao, x.Descricao, x.ConverterStatusEnumParaStatus(), x.Resposta, x.DataCriacao));
+        }
+        #endregion
     }
 }

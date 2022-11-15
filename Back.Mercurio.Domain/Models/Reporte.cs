@@ -25,6 +25,23 @@ namespace Back.Mercurio.Domain.Models
             AssuntoId = assuntoId;
             UsuarioCriacao = usuarioCriacao;
         }
+
+        public string ConverterStatusEnumParaStatus()
+        {
+            return Status switch
+            {
+                Status.Respondido => "Respondido",
+                _ => "Aguardando Resposta..."
+            };
+        }
+
+        public void AdicionarReposta(string resposta, Guid userId)
+        {
+            Status = Status.Respondido;
+            Resposta = resposta;
+            UsuarioAlteracao = userId;
+            DataAlteracao = DateTime.UtcNow;
+        }
     }
 
     public enum Status

@@ -19,9 +19,16 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<Reporte>> ObterTodosPorUsuarioId(Guid usuarioId)
         {
-            return await _context.Reportes.AsNoTracking().Where(x => x.UsuarioCriacao == usuarioId &&
+            return await _context.Reportes.Include(x => x.Assunto).AsNoTracking().Where(x => x.UsuarioCriacao == usuarioId &&
                                                                      x.DataExclusao == null
                                                                ).ToListAsync();
+        }
+
+        public async Task<Reporte> ObterPorId(Guid reporteId)
+        {
+            return await _context.Reportes.AsNoTracking().SingleOrDefaultAsync(x => x.Id == reporteId &&
+                                                                     x.DataExclusao == null
+                                                               );
         }
 
         public async Task<bool> Adicionar(Reporte reporte)

@@ -11,17 +11,14 @@ namespace Back.Mercurio.Api.Controllers
     [Authorize]
     public class ProdutoUsuarioController : MainController
     {
-        private readonly IAspNetUser _user;
         private readonly IProdutoUsuarioRepository _produtoUsuarioRepository;
         private readonly IProdutoValorMedioRepository _produtoValorMedioRepository;
         private readonly IMercadoRepository _mercadoRepository;
 
-        public ProdutoUsuarioController(IAspNetUser user,
-               IProdutoUsuarioRepository produtoUsuarioRepository,
+        public ProdutoUsuarioController(IProdutoUsuarioRepository produtoUsuarioRepository,
                IProdutoValorMedioRepository produtoValorMedioRepository,
                IMercadoRepository mercadoRepository)
         {
-            _user = user;
             _produtoUsuarioRepository = produtoUsuarioRepository;
             _produtoValorMedioRepository = produtoValorMedioRepository;
             _mercadoRepository = mercadoRepository;

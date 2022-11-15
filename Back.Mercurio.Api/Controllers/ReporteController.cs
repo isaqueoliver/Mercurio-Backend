@@ -26,17 +26,17 @@ namespace Back.Mercurio.Api.Controllers
         /// Método para obter todos os Reportes
         /// </summary>
         [HttpGet("ObterTodos")]
-        [ProducesResponseType(typeof(IEnumerable<Reporte>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<ReporteModelView>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<IEnumerable<Reporte>>> ObterTodos()
+        public async Task<ActionResult<IEnumerable<ReporteModelView>>> ObterTodos()
         {
             try
             {
                 var reportes = await _reporteRepository.ObterTodosPorUsuarioId(_user.ObterUserId());
                 if (reportes.Any())
                 {
-                    return Ok(reportes);
+                    return Ok(reportes.ReporteMapToReporteModelView());
                 }
 
                 return NoContent();
@@ -63,6 +63,36 @@ namespace Back.Mercurio.Api.Controllers
                 }
 
                 AdicionarErroProcessamento("Erro ao adicionar o reporte");
+                return CustomResponse();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        [HttpPatch("Responder")]
+        [ProducesResponseType(typeof(Reporte), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> AdicionarResposta([FromBody, Required] RespostaViewModel resposta)
+        {
+            try
+            {
+                var reporte = await _reporteRepository.ObterPorId(resposta.ReporteId);
+                if(reporte is null)
+                {
+                    AdicionarErroProcessamento("Reporte não foi encontrado!");
+                    return CustomResponse();
+                }
+                reporte.AdicionarReposta(resposta.Resposta, _user.ObterUserId());
+                var result = await _reporteRepository.Atualizar(reporte);
+
+                if (result)
+                {
+                    return Ok("Reporte respondido!");
+                }
+
+                AdicionarErroProcessamento("Erro ao responder o reporte");
                 return CustomResponse();
             }
             catch (Exception ex)
