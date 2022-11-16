@@ -14,5 +14,6 @@ namespace Back.Mercurio.Infrastructure.IRepository
         Task<IEnumerable<ProdutoUsuario>> ObterTodosPorEstadoECidade(Guid estadoId, Guid cidadeId);
         Task<IEnumerable<ProdutoUsuario>> ObterTodosPorMercado(Guid mercadoId);
         Task<bool> Adicionar(ProdutoUsuario produto);
+        Task<IEnumerable<ProdutoUsuario>> ObterProdutosPorNome(string nome);
     }
 }

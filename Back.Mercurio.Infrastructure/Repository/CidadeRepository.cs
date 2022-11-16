@@ -26,6 +26,11 @@ namespace Back.Mercurio.Infrastructure.Repository
             return await _context.Cidades.AsNoTracking().Where(x => x.EstadoId == estadoId).ToListAsync();
         }
 
+        public async Task<Cidade> ObterPorId(Guid cidadeId)
+        {
+            return await _context.Cidades.AsNoTracking().SingleOrDefaultAsync(x => x.Id == cidadeId);
+        }
+
         public void Dispose()
         {
             _context?.Dispose();

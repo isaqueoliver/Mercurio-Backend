@@ -2,8 +2,10 @@
 using Back.Mercurio.Api.Usuario;
 using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
+using Back.Mercurio.Infrastructure.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Back.Mercurio.Api.Controllers
 {
@@ -45,6 +47,25 @@ namespace Back.Mercurio.Api.Controllers
             try
             {
                 var produtos = await _produtoValorMedioRepository.ObterTodosPorMercado(mercadoId);
+                if (produtos.Any())
+                {
+                    return CustomResponse(produtos.ProdutoValorMedioMapToProdutoValorMedioModelView());
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        [HttpGet("ObterTodosPorProdutoNome/{nome}")]
+        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterTodosPorProdutoNome([MaxLength(25)] string nome)
+        {
+            try
+            {
+                var produtos = await _produtoValorMedioRepository.ObterProdutosPorNome(nome);
                 if (produtos.Any())
                 {
                     return CustomResponse(produtos.ProdutoValorMedioMapToProdutoValorMedioModelView());

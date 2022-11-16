@@ -47,6 +47,31 @@ namespace Back.Mercurio.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Método para obter todos os Mercados
+        /// </summary>
+        [HttpGet("ObterTodosPorMercadoNome/{nome}")]
+        [ProducesResponseType(typeof(IEnumerable<MercadoViewModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<IEnumerable<MercadoViewModel>>> ObterTodosPorMercadoNome([MaxLength(25)] string nome)
+        {
+            try
+            {
+                var mercados = await _mercadoRepository.ObterMercadosPorNome(nome);
+                if (mercados.Any())
+                {
+                    return Ok(mercados.MercadoMapToMercadoViewModel());
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
         [HttpPost("Adicionar")]
         [ProducesResponseType(typeof(Mercado), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
@@ -54,7 +79,7 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
-                var mercadoAdd = new Mercado(mercado.Nome, mercado.EstadoId, mercado.CidadeId, mercado.Endereco, mercado.Imagem);
+                var mercadoAdd = new Mercado(mercado.Nome, mercado.EstadoId, mercado.CidadeId, _user.ObterUserId(), mercado.Endereco, mercado.Imagem);
                 var result = await _mercadoRepository.Adicionar(mercadoAdd);
 
                 if (result)
@@ -64,32 +89,6 @@ namespace Back.Mercurio.Api.Controllers
 
                 AdicionarErroProcessamento("Erro ao adicionar um Mercado.");
                 return CustomResponse();
-            }
-            catch (Exception ex)
-            {
-                return CustomResponse(ex);
-            }
-        }
-
-        [HttpDelete("Remover/{mercadoId}")]
-        [ProducesResponseType(typeof(Mercado), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult> Remover(Guid mercadoId)
-        {
-            try
-            {
-                var mercado = await _mercadoRepository.ObterPorId(mercadoId);
-
-                if (mercado is null)
-                {
-                    AdicionarErroProcessamento("Mercado não encontrado no sistema.");
-                    return CustomResponse();
-                }
-
-                await _mercadoRepository.Remover(mercado);
-
-                return CustomResponse(mercado);
             }
             catch (Exception ex)
             {

@@ -24,9 +24,9 @@ namespace Back.Mercurio.Infrastructure.Repository
                                                                      x.DataExclusao == null).ToListAsync();
         }
 
-        public async Task<Mercado> ObterPorNome(string nome)
+        public async Task<IEnumerable<Mercado>> ObterMercadosPorNome(string nome)
         {
-            return await _context.Mercados.FirstOrDefaultAsync(x => x.Nome == nome);
+            return await _context.Mercados.Include(x => x.Estado).Include(x => x.Cidade).Where(x => x.Nome.Contains(nome)).ToListAsync();
         }
 
         public async Task<Mercado> ObterPorId(Guid id)

@@ -4,6 +4,7 @@ using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Back.Mercurio.Api.Controllers
 {
@@ -14,14 +15,17 @@ namespace Back.Mercurio.Api.Controllers
         private readonly IProdutoUsuarioRepository _produtoUsuarioRepository;
         private readonly IProdutoValorMedioRepository _produtoValorMedioRepository;
         private readonly IMercadoRepository _mercadoRepository;
+        private readonly IAspNetUser _user;
 
         public ProdutoUsuarioController(IProdutoUsuarioRepository produtoUsuarioRepository,
                IProdutoValorMedioRepository produtoValorMedioRepository,
-               IMercadoRepository mercadoRepository)
+               IMercadoRepository mercadoRepository,
+               IAspNetUser user)
         {
             _produtoUsuarioRepository = produtoUsuarioRepository;
             _produtoValorMedioRepository = produtoValorMedioRepository;
             _mercadoRepository = mercadoRepository;
+            _user = user;
         }
 
         [HttpPost("Adicionar")]
@@ -36,7 +40,7 @@ namespace Back.Mercurio.Api.Controllers
                     return CustomResponse();
                 }
 
-                var produtoAdd = new ProdutoUsuario(produto.ProdutoId, produto.MercadoId, mercado.EstadoId, mercado.CidadeId, produto.Valor);
+                var produtoAdd = new ProdutoUsuario(produto.ProdutoId, produto.MercadoId, mercado.EstadoId, mercado.CidadeId, _user.ObterUserId(), produto.Valor);
                 var result = await _produtoUsuarioRepository.Adicionar(produtoAdd);
                 if(result)
                 {
@@ -75,14 +79,14 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpGet("ObterTodosPorMercado/{mercadoId}")]
-        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterPorMercado(Guid mercadoId)
+        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterPorMercado([Required]Guid mercadoId)
         {
             try
             {
                 var produtos = await _produtoUsuarioRepository.ObterTodosPorMercado(mercadoId);
                 if (produtos.Any())
                 {
-                    return CustomResponse(produtos);
+                    return CustomResponse(produtos.ProdutoUsuarioMapToProdutoUsuarioModelView());
                 }
 
                 return NoContent();
@@ -93,15 +97,34 @@ namespace Back.Mercurio.Api.Controllers
             }
         }
 
-        [HttpGet("ObterTodosPorUsuario/{usuarioId}")]
-        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterPorUsuario(Guid usuarioId)
+        [HttpGet("ObterTodosPorProdutoNome/{nome}")]
+        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterTodosPorProdutoNome([MaxLength(25)]string nome)
         {
             try
             {
-                var produtos = await _produtoUsuarioRepository.ObterTodosPorUsuario(usuarioId);
+                var produtos = await _produtoUsuarioRepository.ObterProdutosPorNome(nome);
                 if (produtos.Any())
                 {
-                    return CustomResponse(produtos);
+                    return CustomResponse(produtos.ProdutoUsuarioMapToProdutoUsuarioModelView());
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        [HttpGet("ObterTodosPorUsuario")]
+        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterPorUsuario()
+        {
+            try
+            {
+                var produtos = await _produtoUsuarioRepository.ObterTodosPorUsuario(_user.ObterUserId());
+                if (produtos.Any())
+                {
+                    return CustomResponse(produtos.ProdutoUsuarioMapToProdutoUsuarioModelView());
                 }
 
                 return NoContent();

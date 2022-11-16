@@ -20,13 +20,14 @@ namespace Back.Mercurio.Domain.Models
         public virtual List<ProdutoValorMedio> ProdutosValoresMedios { get; private set; }
 
         public Mercado() { }
-        public Mercado(string nome, Guid estadoId, Guid cidadeId, string endereco, string imagem)
+        public Mercado(string nome, Guid estadoId, Guid cidadeId, Guid usuarioId, string endereco, string imagem)
         {
             Nome = nome;
             Endereco = endereco;
             DataCriacao = DateTime.UtcNow;
             CidadeId = cidadeId;
             EstadoId = estadoId;
+            UsuarioCriacao = usuarioId;
             Imagem = imagem;
         }
     }

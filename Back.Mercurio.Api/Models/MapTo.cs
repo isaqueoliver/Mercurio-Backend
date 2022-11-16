@@ -24,6 +24,17 @@ namespace Back.Mercurio.Api.Models
         {
             return cidades.Select(x => new CidadeViewModel(x.Id, x.Nome));
         }
+        public static CidadeViewModel CidadeMapToCidadeViewModel(this Cidade cidade)
+        {
+            return new CidadeViewModel(cidade.Id, cidade.Nome);
+        }
+        #endregion
+
+        #region Estado
+        public static EstadoViewModel EstadoMapToEstadoViewModel(this Estado estado)
+        {
+            return new EstadoViewModel(estado.Sigla);
+        }
         #endregion
 
         #region Mercado

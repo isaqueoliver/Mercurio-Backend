@@ -29,8 +29,11 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<ProdutoUsuario>> ObterTodosPorUsuario(Guid usuarioId)
         {
-            return await _context.ProdutoUsuarios.Where(x => x.UsuarioCriacao == usuarioId &&
-                                                             x.DataExclusao == null).ToListAsync();
+            return await _context.ProdutoUsuarios
+                                                .Include(x => x.Produto)
+                                                .Include(x => x.Mercado)
+                                                .Where(x => x.UsuarioCriacao == usuarioId &&
+                                                            x.DataExclusao == null).ToListAsync();
         }
 
         public async Task<IEnumerable<ProdutoUsuario>> ObterTodosPorMercadoEProduto(Guid mercadoId, Guid produtoId)
@@ -55,8 +58,13 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<IEnumerable<ProdutoUsuario>> ObterTodosPorMercado(Guid mercadoId)
         {
-            return await _context.ProdutoUsuarios.Where(x => x.MercadoId == mercadoId &&
+            return await _context.ProdutoUsuarios.Include(x => x.Mercado).Include(x => x.Produto).Where(x => x.MercadoId == mercadoId &&
                                                              x.DataExclusao == null).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProdutoUsuario>> ObterProdutosPorNome(string nome)
+        {
+            return await _context.ProdutoUsuarios.Include(x => x.Mercado).Include(x => x.Produto).Where(x => x.Produto.Nome.Contains(nome) && x.DataExclusao == null).ToListAsync();
         }
     }
 }

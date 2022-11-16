@@ -20,6 +20,31 @@ namespace Back.Mercurio.Api.Controllers
         /// <summary>
         /// Método para obter todos os Estados
         /// </summary>
+        [HttpGet("ObterPorId/{estadoId}")]
+        [ProducesResponseType(typeof(EstadoViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<EstadoViewModel>> ObterPorId(Guid estadoId)
+        {
+            try
+            {
+                var estado = await _estadoRepository.ObterPorId(estadoId);
+                if (estado is not null)
+                {
+                    return Ok(estado.EstadoMapToEstadoViewModel());
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        /// <summary>
+        /// Método para obter todos os Estados
+        /// </summary>
         [HttpGet("ObterTodos")]
         [ProducesResponseType(typeof(IEnumerable<Estado>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]

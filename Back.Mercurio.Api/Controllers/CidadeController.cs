@@ -22,6 +22,31 @@ namespace Back.Mercurio.Api.Controllers
         /// <summary>
         /// Método para obter todos os Cidades
         /// </summary>
+        [HttpGet("ObterPorId/{cidadeId}")]
+        [ProducesResponseType(typeof(CidadeViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<CidadeViewModel>> ObterPorId(Guid cidadeId)
+        {
+            try
+            {
+                var cidade = await _cidadeRepository.ObterPorId(cidadeId);
+                if (cidade is not null)
+                {
+                    return Ok(cidade.CidadeMapToCidadeViewModel());
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        /// <summary>
+        /// Método para obter todos os Cidades
+        /// </summary>
         [HttpGet("ObterTodasPorEstado/{estadoId}")]
         [ProducesResponseType(typeof(IEnumerable<CidadeViewModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]

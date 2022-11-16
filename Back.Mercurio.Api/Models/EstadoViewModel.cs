@@ -1,6 +1,6 @@
 ﻿namespace Back.Mercurio.Api.Models
 {
-    public class EstadoViewModel
+    public struct EstadoViewModel
     {
         public string Sigla { get; set; }
 
