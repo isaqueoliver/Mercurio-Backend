@@ -29,12 +29,12 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpPost("Adicionar")]
-        public async Task<ActionResult<ProdutoUsuario>> Adicionar([FromBody]ProdutoUsuarioViewModel produto)
+        public async Task<ActionResult<ProdutoUsuario>> Adicionar([FromBody] ProdutoUsuarioViewModel produto)
         {
             try
             {
                 var mercado = await _mercadoRepository.ObterPorId(produto.MercadoId);
-                if(mercado is null)
+                if (mercado is null)
                 {
                     AdicionarErroProcessamento("Mercado não foi encontrado!");
                     return CustomResponse();
@@ -42,7 +42,7 @@ namespace Back.Mercurio.Api.Controllers
 
                 var produtoAdd = new ProdutoUsuario(produto.ProdutoId, produto.MercadoId, mercado.EstadoId, mercado.CidadeId, _user.ObterUserId(), produto.Valor);
                 var result = await _produtoUsuarioRepository.Adicionar(produtoAdd);
-                if(result)
+                if (result)
                 {
                     await Task.Run(async () => await AdicionarProdutoValorMedio(mercado, produto.ProdutoId));
 
@@ -52,7 +52,7 @@ namespace Back.Mercurio.Api.Controllers
                 AdicionarErroProcessamento("Erro ao adicionar o Produto.");
                 return CustomResponse();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return CustomResponse(ex);
             }
@@ -79,7 +79,7 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpGet("ObterTodosPorMercado/{mercadoId}")]
-        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterPorMercado([Required]Guid mercadoId)
+        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterPorMercado([Required] Guid mercadoId)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace Back.Mercurio.Api.Controllers
         }
 
         [HttpGet("ObterTodosPorProdutoNome/{nome}")]
-        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterTodosPorProdutoNome([MaxLength(25)]string nome)
+        public async Task<ActionResult<IEnumerable<ProdutoUsuarioModelView>>> ObterTodosPorProdutoNome([MaxLength(25)] string nome)
         {
             try
             {
@@ -139,18 +139,20 @@ namespace Back.Mercurio.Api.Controllers
         {
             var produtos = await _produtoUsuarioRepository.ObterTodosPorMercadoEProduto(mercado.Id, produtoId);
 
-            decimal valorMedio = produtos.Sum(x => x.Valor) / produtos.Count();
+            int indexMediana = produtos.Count() / 2;
+
+            decimal valorMediana = produtos.OrderBy(x => x.Valor).ElementAt(indexMediana).Valor;
 
             var produtoMedio = await _produtoValorMedioRepository.ObterPorMercadoEProduto(mercado.Id, produtoId);
 
-            if(produtoMedio is not null)
+            if (produtoMedio is not null)
             {
-                produtoMedio.AtualizarValor(valorMedio);
+                produtoMedio.AtualizarValor(valorMediana);
                 await _produtoValorMedioRepository.Atualizar(produtoMedio);
             }
             else
             {
-                produtoMedio = new(produtoId, mercado.Id, mercado.EstadoId, mercado.CidadeId, valorMedio);
+                produtoMedio = new(produtoId, mercado.Id, mercado.EstadoId, mercado.CidadeId, valorMediana);
                 await _produtoValorMedioRepository.Adicionar(produtoMedio);
             }
         }

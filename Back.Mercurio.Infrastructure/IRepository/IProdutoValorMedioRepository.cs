@@ -1,9 +1,4 @@
 ﻿using Back.Mercurio.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Back.Mercurio.Infrastructure.IRepository
 {
@@ -11,9 +6,11 @@ namespace Back.Mercurio.Infrastructure.IRepository
     {
         Task<bool> Adicionar(ProdutoValorMedio produto);
         Task<bool> Atualizar(ProdutoValorMedio produto);
-        Task<IEnumerable<ProdutoValorMedio>> ObterTodosPorEstadoECidade(Guid estadoId, Guid cidadeId);
+        Task<IEnumerable<ProdutoValorMedio>> ObterTodosPorEstadoECidade(Guid cidadeId);
+        Task<IEnumerable<Guid>> ObterTodosMercadosPorCidade(Guid cidadeId);
         Task<IEnumerable<ProdutoValorMedio>> ObterTodosPorMercado(Guid mercadoId);
         Task<ProdutoValorMedio> ObterPorMercadoEProduto(Guid mercadoId, Guid produtoId);
         Task<IEnumerable<ProdutoValorMedio>> ObterProdutosPorNome(string nome);
+        Task<ProdutoValorMedio> ObterProdutoMaisBartoPorEstadoECidade(Guid cidadeId, Guid produtoId);
     }
 }

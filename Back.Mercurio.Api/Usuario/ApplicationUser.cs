@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-
-namespace Back.Mercurio.Api.Usuario
+﻿namespace Back.Mercurio.Api.Usuario
 {
     //public class ApplicationUser : IdentityUser
     //{

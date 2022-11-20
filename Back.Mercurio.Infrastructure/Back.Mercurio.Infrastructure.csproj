@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Back.Mercurio.Domain\Back.Mercurio.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

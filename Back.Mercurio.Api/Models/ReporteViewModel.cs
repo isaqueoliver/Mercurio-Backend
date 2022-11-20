@@ -1,6 +1,4 @@
-﻿using Back.Mercurio.Domain.Models;
-
-namespace Back.Mercurio.Api.Models
+﻿namespace Back.Mercurio.Api.Models
 {
     public struct RespostaViewModel
     {

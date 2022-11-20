@@ -2,12 +2,6 @@
 using Back.Mercurio.Infrastructure.Context;
 using Back.Mercurio.Infrastructure.IRepository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Back.Mercurio.Infrastructure.Repository
 {
@@ -33,13 +27,17 @@ namespace Back.Mercurio.Infrastructure.Repository
             _context.ProdutosValoresMedios.Update(produto);
             return await _context.Commit();
         }
+        public async Task<IEnumerable<Guid>> ObterTodosMercadosPorCidade(Guid cidadeId)
+        {
+            return _context.ProdutosValoresMedios.Where(x => x.CidadeId == cidadeId &&
+                                                             x.Ativo).Select(x => x.MercadoId);
+        }
 
-        public async Task<IEnumerable<ProdutoValorMedio>> ObterTodosPorEstadoECidade(Guid estadoId, Guid cidadeId)
+        public async Task<IEnumerable<ProdutoValorMedio>> ObterTodosPorEstadoECidade(Guid cidadeId)
         {
             return await _context.ProdutosValoresMedios.Include(x => x.Mercado)
                                                        .Include(x => x.Produto)
-                                                       .Where(x => x.EstadoId == estadoId &&
-                                                                   x.CidadeId == cidadeId &&
+                                                       .Where(x => x.CidadeId == cidadeId &&
                                                                    x.Ativo)
                                                        .ToListAsync();
         }
@@ -52,9 +50,21 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<ProdutoValorMedio> ObterPorMercadoEProduto(Guid mercadoId, Guid produtoId)
         {
-            return await _context.ProdutosValoresMedios.Include(x => x.Produto).SingleOrDefaultAsync(x => x.MercadoId == mercadoId &&
+            return await _context.ProdutosValoresMedios.Include(x => x.Mercado)
+                                                       .Include(x => x.Produto)
+                                                       .SingleOrDefaultAsync(x => x.MercadoId == mercadoId &&
                                                                                   x.ProdutoId == produtoId &&
                                                                                   x.Ativo);
+        }
+
+        public async Task<ProdutoValorMedio> ObterProdutoMaisBartoPorEstadoECidade(Guid cidadeId, Guid produtoId)
+        {
+            return await _context.ProdutosValoresMedios.Include(x => x.Mercado)
+                                                       .Include(x => x.Produto)
+                                                       .Where(x => x.CidadeId == cidadeId &&
+                                                                   x.ProdutoId == produtoId &&
+                                                                   x.Ativo)
+                                                       .OrderBy(x => x.Valor).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<ProdutoValorMedio>> ObterProdutosPorNome(string nome)

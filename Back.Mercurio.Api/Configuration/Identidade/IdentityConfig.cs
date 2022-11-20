@@ -1,7 +1,7 @@
 ﻿using Back.Mercurio.Infrastructure.Context;
+using Back.Mercurio.Infrastructure.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Back.Mercurio.Infrastructure.Seed;
 
 namespace Back.Mercurio.Api.Configuration.Identidade
 {

@@ -12,7 +12,7 @@ namespace Back.Mercurio.Api.Models
 
         public static IEnumerable<AssuntoViewModel> AssuntoMapToAssuntoViewModel(this IEnumerable<Assunto> assuntos)
         {
-            foreach(var assunto in assuntos)
+            foreach (var assunto in assuntos)
             {
                 yield return new AssuntoViewModel { Id = assunto.Id, Descricao = assunto.Descricao };
             }

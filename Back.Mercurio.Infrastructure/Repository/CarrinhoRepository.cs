@@ -16,7 +16,7 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<bool> Adicionar(CarrinhoCliente carrinho)
         {
-            _context.CarrinhoCliente.Add(carrinho);
+            await _context.CarrinhoCliente.AddAsync(carrinho);
             return await _context.Commit();
         }
 
@@ -28,6 +28,7 @@ namespace Back.Mercurio.Infrastructure.Repository
 
         public async Task<bool> RemoverCarrinho(CarrinhoCliente carrinho)
         {
+            _context.CarrinhoItens.RemoveRange(carrinho.Itens);
             _context.CarrinhoCliente.Remove(carrinho);
             return await _context.Commit();
         }
@@ -53,6 +54,7 @@ namespace Back.Mercurio.Infrastructure.Repository
         public async Task<CarrinhoCliente> ObterCarrinhoCliente(Guid userId)
         {
             return await _context.CarrinhoCliente
+                                 .Include(x => x.Mercado)
                                  .Include(x => x.Itens)
                                  .FirstOrDefaultAsync(x => x.ClienteId == userId);
         }
@@ -60,7 +62,7 @@ namespace Back.Mercurio.Infrastructure.Repository
         public async Task<CarrinhoItem> ObterCarrinhoItem(Guid carrinhoId, Guid produtoId)
         {
             return await _context.CarrinhoItens
-                                 .FirstOrDefaultAsync(x => x.CarrinhoId == carrinhoId && x.ProdutoId == produtoId);
+                                 .FirstOrDefaultAsync(x => x.CarrinhoClienteId == carrinhoId && x.ProdutoId == produtoId);
         }
     }
 }

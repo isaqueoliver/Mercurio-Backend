@@ -1,18 +1,19 @@
-﻿using System.Text.Json.Serialization;
+﻿using Back.Mercurio.Domain.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back.Mercurio.Domain.Models
 {
-    public class CarrinhoCliente
+    public class CarrinhoCliente : Entity
     {
-        public Guid Id { get; private set; }
         public Guid ClienteId { get; private set; }
         public decimal ValorTotal { get; private set; }
-        public string? Mercado { get; private set; }
-        public List<CarrinhoItem> Itens { get; private set; } = new List<CarrinhoItem>();
+        public Guid MercadoId { get; private set; }
+
+        public virtual Mercado Mercado { get; private set; }
+        public virtual List<CarrinhoItem> Itens { get; private set; } = new List<CarrinhoItem>();
 
         public CarrinhoCliente(Guid clienteId)
         {
-            Id = Guid.NewGuid();
             ClienteId = clienteId;
         }
 
@@ -28,9 +29,9 @@ namespace Back.Mercurio.Domain.Models
             return quantidade;
         }
 
-        public void AdicionarMercado(string mercado)
+        public void AdicionarMercado(Guid mercadoId)
         {
-            Mercado = mercado;
+            MercadoId = mercadoId;
         }
 
         internal void CalcularValorCarrinho()
@@ -90,27 +91,26 @@ namespace Back.Mercurio.Domain.Models
         }
     }
 
-    public class CarrinhoItem
+    public class CarrinhoItem : Entity
     {
         public CarrinhoItem()
         {
-            Id = Guid.NewGuid();
         }
 
         public Guid Id { get; private set; }
-        public Guid ProdutoId { get; private set; }
         public string Nome { get; private set; }
         public int Quantidade { get; private set; }
         public decimal Valor { get; private set; }
         public string Imagem { get; private set; }
 
-        public Guid CarrinhoId { get; private set; }
-        [JsonIgnore]
+        public Guid ProdutoId { get; private set; }
+        public virtual Produto Produto { get; private set; }
+
+        public Guid CarrinhoClienteId { get; private set; }        
         public virtual CarrinhoCliente CarrinhoCliente { get; private set; }
 
         public CarrinhoItem(Guid produtoId, string nome, int quantidade, decimal valor, string imagem)
         {
-            Id = Guid.NewGuid();
             ProdutoId = produtoId;
             Nome = nome;
             Quantidade = quantidade;
@@ -120,7 +120,7 @@ namespace Back.Mercurio.Domain.Models
 
         internal void AssociarCarrinho(Guid carrinhoId)
         {
-            CarrinhoId = carrinhoId;
+            CarrinhoClienteId = carrinhoId;
         }
 
         internal decimal CalcularValor()

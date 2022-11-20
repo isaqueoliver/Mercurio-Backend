@@ -90,7 +90,7 @@ namespace Back.Mercurio.Api.Controllers
 
                 return CustomResponse(cidadeString);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return CustomResponse(ex);
             }

@@ -1,16 +1,16 @@
-﻿using Back.Mercurio.Domain.Models;
-
-namespace Back.Mercurio.Api.Models
+﻿namespace Back.Mercurio.Api.Models
 {
     public struct ItemCarrinhoViewModel
     {
         public Guid ProdutoId { get; set; }
-        public Guid MercadoId { get; set; }
+        public Guid CidadeId { get; set; }
+        public int Quantidade { get; set; }
 
-        public ItemCarrinhoViewModel(Guid produtoId, Guid mercadoId)
+        public ItemCarrinhoViewModel(Guid cidadeId, Guid produtoId, int quantidade)
         {
             ProdutoId = produtoId;
-            MercadoId = mercadoId;
+            CidadeId = cidadeId;
+            Quantidade = quantidade;
         }
     }
 }

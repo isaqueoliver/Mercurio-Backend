@@ -79,7 +79,7 @@ namespace Back.Mercurio.Api.Controllers
             try
             {
                 var reporte = await _reporteRepository.ObterPorId(resposta.ReporteId);
-                if(reporte is null)
+                if (reporte is null)
                 {
                     AdicionarErroProcessamento("Reporte não foi encontrado!");
                     return CustomResponse();

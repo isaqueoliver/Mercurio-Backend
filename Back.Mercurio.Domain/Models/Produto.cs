@@ -11,6 +11,7 @@ namespace Back.Mercurio.Domain.Models
 
         public virtual List<ProdutoUsuario> ProdutoUsuarios { get; private set; }
         public virtual List<ProdutoValorMedio> ProdutosValoresMedios { get; private set; }
+        public virtual List<CarrinhoItem> Itens { get; private set; }
 
         public Produto() { }
 

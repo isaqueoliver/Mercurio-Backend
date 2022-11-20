@@ -1,5 +1,4 @@
 ﻿using Back.Mercurio.Api.Configuration.Identidade;
-using Back.Mercurio.Api.Usuario;
 using Back.Mercurio.Infrastructure.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

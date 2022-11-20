@@ -2,7 +2,6 @@
 using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace Back.Mercurio.Api.Controllers
@@ -82,6 +81,31 @@ namespace Back.Mercurio.Api.Controllers
                 if (estado is not null)
                 {
                     return Ok(estado);
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return CustomResponse(ex);
+            }
+        }
+
+        [HttpPost("ObterCidadesPorEstado/{estadoId}")]
+        [ProducesResponseType(typeof(Estado), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> ProcessarCidades([FromBody] Dictionary<string, string> cidades, Guid estadoId)
+        {
+            try
+            {
+                var estado = await _estadoRepository.ObterPorId(estadoId);
+                List<string> cidadeS = new();
+                if (estado is not null)
+                {
+                    foreach (var cidade in cidades)
+                        cidadeS.Add($"new Cidade({Guid.NewGuid()}, {cidade.Value}, {estadoId})");
+                    return Ok(cidadeS);
                 }
 
                 return NoContent();

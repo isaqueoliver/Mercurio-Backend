@@ -8,10 +8,8 @@ namespace Back.Mercurio.Infrastructure.Context
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IUnitOfWork
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            //ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         public DbSet<Produto> Produtos { get; set; }
@@ -30,15 +28,6 @@ namespace Back.Mercurio.Infrastructure.Context
             modelBuilder.CreateAssunto();
             modelBuilder.CreateEstado();
             modelBuilder.CreateCidade();
-
-            modelBuilder.Entity<CarrinhoCliente>()
-                        .HasIndex(x => x.ClienteId)
-                        .HasDatabaseName("IDX_Cliente");
-
-            modelBuilder.Entity<CarrinhoCliente>()
-                        .HasMany(x => x.Itens)
-                        .WithOne(y => y.CarrinhoCliente)
-                        .HasForeignKey(x => x.CarrinhoId);
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
                 relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;

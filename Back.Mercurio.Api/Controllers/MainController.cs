@@ -17,7 +17,7 @@ namespace Back.Mercurio.Api.Controllers
                 return Ok(result);
             }
 
-            return BadRequest(new { errors = Erros.ToArray()});
+            return BadRequest(new { errors = Erros.ToArray() });
         }
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)

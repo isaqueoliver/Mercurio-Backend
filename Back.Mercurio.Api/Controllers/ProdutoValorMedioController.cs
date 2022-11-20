@@ -1,9 +1,6 @@
 ﻿using Back.Mercurio.Api.Models;
 using Back.Mercurio.Api.Usuario;
-using Back.Mercurio.Domain.Models;
 using Back.Mercurio.Infrastructure.IRepository;
-using Back.Mercurio.Infrastructure.Repository;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -27,15 +24,15 @@ namespace Back.Mercurio.Api.Controllers
         {
             try
             {
-                var produtos = await _produtoValorMedioRepository.ObterTodosPorEstadoECidade(estadoId, cidadeId);
-                if(produtos.Any())
+                var produtos = await _produtoValorMedioRepository.ObterTodosPorEstadoECidade(cidadeId);
+                if (produtos.Any())
                 {
                     return CustomResponse(produtos.ProdutoValorMedioMapToProdutoValorMedioModelView());
                 }
 
                 return NoContent();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return CustomResponse(ex);
             }
